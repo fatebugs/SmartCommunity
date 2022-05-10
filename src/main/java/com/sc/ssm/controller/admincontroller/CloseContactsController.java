@@ -23,6 +23,12 @@ public class CloseContactsController {
     @Autowired
     private ScCloseContactsService scCloseContactsService;
 
+
+    @RequestMapping("/closecontacts")
+    public String toCloseContacts(){
+        return "admin_closecontacts";
+    }
+
     /**
      * 查询密接
      *
@@ -33,7 +39,10 @@ public class CloseContactsController {
      */
     @RequestMapping("/findCC")
     @ResponseBody
-    public Result findCC(@RequestParam(value = "page", defaultValue = "1") int page, @RequestParam(value = "row", defaultValue = "5") int row, @RequestParam(value = "type", required = false, defaultValue = "") String type, @RequestParam(value = "check", required = false, defaultValue = "") String check) {
+    public Result findCC(@RequestParam(value = "page", defaultValue = "1") int page,
+                         @RequestParam(value = "row", defaultValue = "5") int row,
+                         @RequestParam(value = "type", required = false, defaultValue = "") String type,
+                         @RequestParam(value = "check", required = false, defaultValue = "") String check) {
         PageInfo<ScCloseContacts> cc = scCloseContactsService.findCC(page, row, type, check);
         return Result.ok().put(cc);
     }
