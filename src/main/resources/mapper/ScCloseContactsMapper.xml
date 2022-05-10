@@ -11,10 +11,13 @@
             <result property="ccPhone" column="cc_phone" jdbcType="VARCHAR"/>
             <result property="ccAdress" column="cc_adress" jdbcType="VARCHAR"/>
             <result property="ccUsername" column="cc_username" jdbcType="VARCHAR"/>
+            <result property="ccIsolationTime" column="cc_isolation_time" jdbcType="VARCHAR"/>
+            <result property="ccIsolationWay" column="cc_isolation_way" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
         id,cc_name,cc_sex,
-        cc_phone,cc_adress,cc_username
+        cc_phone,cc_adress,cc_username,
+        cc_isolation_time,cc_isolation_way
     </sql>
 </mapper>

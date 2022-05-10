@@ -17,7 +17,7 @@ public class ScCloseContacts implements Serializable {
     /**
      * 
      */
-    @TableId
+    @TableId(type = IdType.AUTO)
     private Integer id;
 
     /**
@@ -45,6 +45,16 @@ public class ScCloseContacts implements Serializable {
      */
     private String ccUsername;
 
+    /**
+     * 需要隔离时间
+     */
+    private String ccIsolationTime;
+
+    /**
+     * 隔离方式
+     */
+    private String ccIsolationWay;
+
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 
@@ -65,7 +75,9 @@ public class ScCloseContacts implements Serializable {
             && (this.getCcSex() == null ? other.getCcSex() == null : this.getCcSex().equals(other.getCcSex()))
             && (this.getCcPhone() == null ? other.getCcPhone() == null : this.getCcPhone().equals(other.getCcPhone()))
             && (this.getCcAdress() == null ? other.getCcAdress() == null : this.getCcAdress().equals(other.getCcAdress()))
-            && (this.getCcUsername() == null ? other.getCcUsername() == null : this.getCcUsername().equals(other.getCcUsername()));
+            && (this.getCcUsername() == null ? other.getCcUsername() == null : this.getCcUsername().equals(other.getCcUsername()))
+            && (this.getCcIsolationTime() == null ? other.getCcIsolationTime() == null : this.getCcIsolationTime().equals(other.getCcIsolationTime()))
+            && (this.getCcIsolationWay() == null ? other.getCcIsolationWay() == null : this.getCcIsolationWay().equals(other.getCcIsolationWay()));
     }
 
     @Override
@@ -78,6 +90,8 @@ public class ScCloseContacts implements Serializable {
         result = prime * result + ((getCcPhone() == null) ? 0 : getCcPhone().hashCode());
         result = prime * result + ((getCcAdress() == null) ? 0 : getCcAdress().hashCode());
         result = prime * result + ((getCcUsername() == null) ? 0 : getCcUsername().hashCode());
+        result = prime * result + ((getCcIsolationTime() == null) ? 0 : getCcIsolationTime().hashCode());
+        result = prime * result + ((getCcIsolationWay() == null) ? 0 : getCcIsolationWay().hashCode());
         return result;
     }
 
@@ -93,6 +107,8 @@ public class ScCloseContacts implements Serializable {
         sb.append(", ccPhone=").append(ccPhone);
         sb.append(", ccAdress=").append(ccAdress);
         sb.append(", ccUsername=").append(ccUsername);
+        sb.append(", ccIsolationTime=").append(ccIsolationTime);
+        sb.append(", ccIsolationWay=").append(ccIsolationWay);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

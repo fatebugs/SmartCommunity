@@ -65,4 +65,13 @@ public class CloseContactsController {
         }
         return Result.ok();
     }
+    @RequestMapping("/save")
+    @ResponseBody
+    public Result save(ScCloseContacts scCloseContacts){
+        boolean flag = scCloseContactsService.save(scCloseContacts);
+        if (flag) {
+            return Result.error();
+        }
+        return Result.ok();
+    }
 }

@@ -4,10 +4,10 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.sc.ssm.dao.ScCloseContactsMapper;
 import com.sc.ssm.domain.ScCloseContacts;
 import com.sc.ssm.junit.Convention;
 import com.sc.ssm.service.ScCloseContactsService;
+import com.sc.ssm.dao.ScCloseContactsMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +17,8 @@ import java.util.List;
  *
  */
 @Service
-public class ScCloseContactsServiceImpl extends ServiceImpl<ScCloseContactsMapper, ScCloseContacts> implements ScCloseContactsService {
+public class ScCloseContactsServiceImpl extends ServiceImpl<ScCloseContactsMapper, ScCloseContacts>
+implements ScCloseContactsService{
     @Autowired
     private ScCloseContactsMapper scCloseContactsMapper;
 
@@ -40,7 +41,6 @@ public class ScCloseContactsServiceImpl extends ServiceImpl<ScCloseContactsMappe
         List<ScCloseContacts> list = scCloseContactsMapper.selectList(queryWrapper);
         return new PageInfo<>(list);
     }
-
 }
 
 
