@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description">
+    <meta content="Themesdesign" name="author">
+    <title>疫苗接种详情</title>
+    <div th:include="user-index::user-head"></div>
+    <!-- Plugins css -->
+    <link th:href="@{/static/css/dropzone.min.css}" rel="stylesheet" type="text/css">
+</head>
+<body data-topbar="dark">
+<div id="layout-wrapper">
+    <div th:replace="user-index::user-header"></div>
+    <!-- ========== Left Sidebar Start ========== -->
+    <div th:replace="user-index::user-menu"></div>
+    <!-- Left Sidebar End -->
+
+    <div class="main-content">
+        <div class="page-content">
+            <div class="container-fluid">
+
+                <!-- start page title -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                            <h4 class="mb-sm-0"></h4>
+                        </div>
+                    </div>
+                </div>
+                <!-- end page title -->
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">疫苗接种信息</h4>
+                                <form th:action="@{/vaccinationSave}" method="post">
+
+                                    <div class="row mb-3">
+                                        <label for="example-text-input" class="col-sm-2 col-form-label">姓名</label>
+                                        <div class="col-sm-10">
+                                            <input class="form-control" type="text" name="vaccinationName" th:value="${resident.residentsName}" id="example-text-input">
+                                        </div>
+                                    </div>
+                                    <input type="hidden" name="vaccinationId" th:value="${resident.residentsId}">
+
+                                    <div class="row mb-3">
+                                        <label for="2" class="col-sm-2 col-form-label">性别</label>
+                                        <div class="col-sm-10">
+                                            <input   type="radio" name="vaccinationSex" id="2" value="1" checked>男
+                                            <input   type="radio" name="vaccinationSex" value="0">女
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <label for="3" class="col-sm-2 col-form-label">电话</label>
+                                        <div class="col-sm-10">
+                                            <input class="form-control" type="tel" name="vaccinationPhone" th:value="${resident.residentsPhone}"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <label for="4" class="col-sm-2 col-form-label">住址</label>
+                                        <div class="col-sm-10">
+                                            <input class="form-control" type="tel" name="vaccinationAdress" th:value="${resident.residentsAdress}"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <label for="5" class="col-sm-2 col-form-label">是否已接种第一针</label>
+                                        <div class="col-sm-10">
+                                            <input  type="radio" name="vaccinationFirst" value="0" id="5" checked>否
+                                            <input  type="radio" name="vaccinationFirst" value="1" >是
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <label for="example-date-input" class="col-sm-2 col-form-label">第一针接种时间</label>
+                                        <div class="col-sm-10">
+                                            <input class="form-control" type="date" name="vaccinationFirsttime" id="example-date-input" value="2008-01-01">
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <label for="6" class="col-sm-2 col-form-label">是否已接种第二针</label>
+                                        <div class="col-sm-10">
+                                            <input  type="radio" name="vaccinationSecond" value="0" id="6" checked>否
+                                            <input  type="radio" name="vaccinationSecond" value="1" >是
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <label for="example-date-input" class="col-sm-2 col-form-label">第二针接种时间</label>
+                                        <div class="col-sm-10">
+                                            <input class="form-control" type="date" name="vaccinationSecondtime"  value="2008-01-01">
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <label for="7" class="col-sm-2 col-form-label">是否已接种第加强针</label>
+                                        <div class="col-sm-10">
+                                            <input  type="radio" name="vaccinationThird" value="0" id="7" checked>否
+                                            <input  type="radio" name="vaccinationThird" value="1" >是
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <label for="example-date-input" class="col-sm-2 col-form-label">加强针接种时间</label>
+                                        <div class="col-sm-10">
+                                            <input class="form-control" type="date" name="vaccinationThirdtime"  value="2008-01-01">
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <div>
+                                            <button type="submit" class="btn btn-primary waves-effect waves-light me-1">
+                                                提交
+                                            </button>
+                                            <button type="reset" class="btn btn-secondary waves-effect">
+                                                取消
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div> <!-- end col -->
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+
+                                <h4 class="card-title">疫苗接种信息上传</h4>
+                                <p class="card-title-desc">
+                                </p>
+                                <div>
+                                    <form th:action="@{/fileupload}" class="dropzone" method="post"
+                                          enctype="multipart/form-data">
+                                        <div class="fallback">
+                                            <input name="file" type="file" multiple="multiple">
+                                        </div>
+                                        <div class="dz-message needsclick">
+                                            <div class="mb-3">
+                                                <i class="display-4 text-muted ri-upload-cloud-2-line"></i>
+                                            </div>
+
+                                            <h4>Drop files here or click to upload.</h4>
+                                        </div>
+                                        <div class="text-center mt-4">
+                                            <input type="button" class="btn btn-primary waves-effect waves-light" value="Send Files">
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+    <!-- JAVASCRIPT -->
+    <script th:src="@{/static/js/jquery.min.js}"></script>
+    <script th:src="@{/static/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/static/js/metisMenu.min.js}"></script>
+    <script th:src="@{/static/js/simplebar.min.js}"></script>
+    <script th:src="@{/static/js/waves.min.js}"></script>
+
+    <!-- Plugins js -->
+    <script th:src="@{/static/js/dropzone.min.js}"></script>
+
+    <script th:src="@{/static/js/app.js}"></script>
+</body>
+</html>

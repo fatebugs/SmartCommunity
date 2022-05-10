@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description">
+    <meta content="Themesdesign" name="author">
+    <title>垃圾分类</title>
+    <div th:include="user-index::user-head"></div>
+</head>
+<body data-topbar="dark">
+    <div id="layout-wrapper">
+        <div th:replace="user-index::user-header"></div>
+        <div th:replace="user-index::user-menu"></div>
+
+        <div class="main-content">
+
+            <div class="page-content">
+                <div class="container-fluid">
+                    <!-- start page title -->
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                                <h4 class="mb-sm-0">垃圾分类小助手</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end page title -->
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+
+                                    <h4 class="card-title">垃圾分类概念</h4>
+                                    <p class="card-title-desc"></p>
+                                    <br>
+                                    <br>
+                                    <div class="table-responsive">
+                                        <table id="resident_table" class="table table-bordered table-nowrap mb-0 table-hover">
+                                            <thead>
+                                            <tr>
+                                                <th scope="col" class="text-center col-md-">id</th>
+                                                <th scope="col" class="text-center col-md-">
+                                                    分类名称
+                                                </th>
+                                                <th scope="col" class="text-center col-md-">
+                                                    解释说明
+                                                </th>
+                                                <th scope="col" class="text-center col-md-">
+                                                    处置要求
+                                                </th>
+                                                <th scope="col" class="text-center col-md-">
+                                                    常见垃圾
+                                                </th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr scope="col" class="text-center .col-md-" th:each="one:${list}">
+                                                <td th:text="${one.classificationId}"></td>
+                                                <td th:text="${one.classificationName}"></td>
+                                                <td th:text="${one.classificationInstructions}"></td>
+                                                <td th:text="${one.classificationDispose}"></td>
+                                                <td th:text="${one.classificationDetails}"></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <p></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div> <!-- end row -->
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-3"></div>
+                                        <div class="col-md-6">
+                                            <form id="search_form" th:action="@{/queryRubbish}">
+                                                <div class="input-group">
+                                                    <input id="hidden_keyword" name="keyword" type="text" class="form-control" placeholder="Search for...">
+
+                                                    <span class="input-group-btn">
+                                                    <button class="btn btn-primary " type="submit" id="query_btn">
+                                                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span> 搜索
+                                                    </button>
+                                                    </span>
+                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                                                </div>
+                                            </form>
+                                        </div>
+
+                                        <div class="col-md-6" th:if="${rubbish!=null}">
+                                            <span style="color:red;font-size: 25px"  th:text="${rubbish.rubbishName}"></span>
+                                            <span style="font-size: 25px">属于</span>
+                                            <span style="color:cornflowerblue;font-size: 25px" th:text="${classification.classificationName}"></span>
+
+                                            <br><br><br>
+                                            <span style="font-size: 25px" th:text="${classification.classificationName}"></span>
+                                            <span style="font-size: 25px">是指：</span>
+                                            <br>
+                                            <span th:text="${classification.classificationInstructions}"></span>
+
+                                            <br><br><br>
+                                            <span style="font-size: 25px" th:text="${classification.classificationName}"></span>
+                                            <span style="font-size: 25px">主要有：</span>
+                                            <br>
+                                            <span th:text="${classification.classificationDetails}"></span>
+
+                                            <br><br><br>
+                                            <span style="font-size: 25px" th:text="${classification.classificationName}"></span>
+                                            <span style="font-size: 25px">处理要求：</span>
+                                            <br>
+                                            <span th:text="${classification.classificationDispose}"></span>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- container-fluid -->
+            </div>
+            <!-- End Page-content -->
+            <footer class="footer">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            Copyright &copy; 2022.Company name All rights reserved.
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="text-sm-end d-none d-sm-block">
+                                Crafted with <i class="mdi mdi-heart text-danger"></i> by Themesdesign
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+
+        </div>
+    </div>
+</body>
+</html>

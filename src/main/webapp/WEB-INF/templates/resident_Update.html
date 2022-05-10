@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>用户信息更新</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description">
+    <meta content="Themesdesign" name="author">
+    <div th:include="admin-index::admin-head"></div>
+</head>
+<body data-topbar="dark">
+
+    <div id="layout-wrapper">
+        <div th:replace="admin-index::admin-header"></div>
+
+        <!-- ========== Left Sidebar Start ========== -->
+        <div th:replace="admin-index::admin-menu"></div>
+        <!-- Left Sidebar End -->
+        <div class="main-content">
+            <div class="page-content">
+                <div class="container-fluid">
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">个人信息修改</h4>
+                                    <form th:action="@{/resident}" method="post">
+                                        <input type="hidden" name="_method" value="put">
+                                        <input type="hidden" name="residentsId" th:value="${resident.residentsId}">
+                                        <div class="row mb-3">
+                                            <label for="name" class="col-sm-2 col-form-label">姓名</label>
+                                            <div class="col-sm-10">
+                                                <input class="form-control" type="text" name="residentsName" id="name"th:value="${resident.residentsName}">
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label for="sex" class="col-sm-2 col-form-label">性别</label>
+                                            <div class="col-sm-10">
+                                                <input class="radio" type="radio" name="residentsSex" value="0" id="sex" th:field="${resident.residentsSex}">女
+                                                <input class="radio" type="radio" name="residentsSex" value="1" th:field="${resident.residentsSex}">男
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label for="phone" class="col-sm-2 col-form-label">电话</label>
+                                            <div class="col-sm-10">
+                                                <input class="form-control" type="tel" name="residentsPhone" th:value="${resident.residentsPhone}" id="phone">
+                                            </div>
+                                        </div>
+                                        <!-- end row -->
+                                        <div class="row mb-3">
+                                            <label for="adress" class="col-sm-2 col-form-label">住址</label>
+                                            <div class="col-sm-10">
+                                                <input class="form-control" type="text" name="residentsAdress" id="adress" th:value="${resident.residentsAdress}">
+                                            </div>
+                                        </div>
+
+                                        <!-- end row -->
+                                        <div class="row mb-3">
+                                            <label for="time" class="col-sm-2 col-form-label">入住时间</label>
+                                            <div class="col-sm-10">
+                                                <input class="form-control input-mask" type="date" name="residentsTime"
+                                                       th:value="${#dates.format(resident.residentsTime,'yyyy-MM-dd')}" id="time">
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label for="safe" class="col-sm-2 col-form-label">健康状态</label>
+                                            <div class="col-sm-10">
+                                                <input class="radio" type="radio" name="residentsSecurity" id="safe" value="0" th:field="${resident.residentsSecurity}">健康
+                                                <input class="radio" type="radio" name="residentsSecurity"  value="1" th:field="${resident.residentsSecurity}">确诊
+                                            </div>
+                                        </div>
+                                        <a class="btn btn-secondary  waves-effect waves-light" th:href="@{/resident}" role="button">取消</a>
+                                        <input type="submit" class="btn btn-primary waves-effect waves-light" value="保存">
+                                    </form>
+                                    <!-- end row -->
+                                </div>
+                            </div>
+                        </div> <!-- end col -->
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <div th:replace="admin-index::admin-foot"></div>
+
+</body>
+</html>

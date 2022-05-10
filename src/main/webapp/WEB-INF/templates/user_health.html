@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description">
+    <meta content="Themesdesign" name="author">
+    <title>出入申请</title>
+    <div th:include="user-index::user-head"></div>
+</head>
+<body data-topbar="dark">
+<div id="layout-wrapper">
+    <div th:replace="user-index::user-header"></div>
+    <!-- ========== Left Sidebar Start ========== -->
+    <div th:replace="user-index::user-menu"></div>
+    <!-- Left Sidebar End -->
+
+    <div class="main-content">
+        <div class="page-content">
+            <div class="container-fluid">
+
+                <!-- start page title -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                            <h4 class="mb-sm-0"></h4>
+                        </div>
+                    </div>
+                </div>
+                <!-- end page title -->
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">每日健康上报</h4>
+                                <form th:action="@{/healthSave}" method="post">
+
+                                    <div class="row mb-3">
+                                        <label for="example-text-input" class="col-sm-2 col-form-label">姓名</label>
+                                        <div class="col-sm-10">
+                                            <input class="form-control" type="text" name="healthName" th:value="${resident.residentsName}" id="example-text-input">
+                                        </div>
+                                    </div>
+                                    <input type="hidden" name="healthIds" th:value="${resident.residentsId}">
+
+                                    <div class="row mb-3">
+                                        <label for="2" class="col-sm-2 col-form-label">体温(℃)</label>
+                                        <div class="col-sm-10">
+                                            <input class="form-control" type="text" name="healthTemperature" id="2" >
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <label for="3" class="col-sm-2 col-form-label">健康状况</label>
+                                        <div class="col-sm-10">
+                                            <input  type="checkbox" name="healthStatus" value="健康" id="3" checked>健康
+                                            <input  type="checkbox" name="healthStatus" value="发烧" >发烧
+                                            <input  type="checkbox" name="healthStatus" value="咳嗽" >咳嗽
+                                            <input  type="checkbox" name="healthStatus" value="呼吸困难" >呼吸困难
+                                            <input  type="checkbox" name="healthStatus" value="乏力" >乏力
+                                            <input  type="checkbox" name="healthStatus" value="其他" >其他
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <label for="4" class="col-sm-2 col-form-label">家人健康状况</label>
+                                        <div class="col-sm-10">
+                                            <input  type="checkbox" name="healthOtherstatus" value="健康" id="4" checked>健康
+                                            <input  type="checkbox" name="healthOtherstatus" value="发烧" >发烧
+                                            <input  type="checkbox" name="healthOtherstatus" value="咳嗽" >咳嗽
+                                            <input  type="checkbox" name="healthOtherstatus" value="呼吸困难" >呼吸困难
+                                            <input  type="checkbox" name="healthOtherstatus" value="乏力" >乏力
+                                            <input  type="checkbox" name="healthOtherstatus" value="其他" >其他
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <label for="5" class="col-sm-2 col-form-label">有无接触过疑似或确诊病例</label>
+                                        <div class="col-sm-10">
+                                            <input  type="radio" name="healthIstouch" value="0" id="5" checked>无
+                                            <input  type="radio" name="healthIstouch" value="1" >有
+                                        </div>
+                                    </div>
+
+                                    <!-- end row -->
+                                    <div class="row mb-3">
+                                        <label for="1" class="col-sm-2 col-form-label">联系电话</label>
+                                        <div class="col-sm-10">
+                                            <input class="form-control" type="tel" name="healthPhone" id="1" th:value="${resident.residentsPhone}">
+                                        </div>
+                                    </div>
+                                    <!-- end row -->
+                                    <div class="row mb-3">
+                                        <label for="example-tel-input" class="col-sm-2 col-form-label">住址</label>
+                                        <div class="col-sm-10">
+                                            <input class="form-control" type="text" name="healthAdree" th:value="${resident.residentsAdress}" id="example-tel-input">
+                                        </div>
+                                    </div>
+                                    <!-- end row -->
+                                    <div class="row mb-3">
+                                        <label for="example-date-input" class="col-sm-2 col-form-label">上报日期</label>
+                                        <div class="col-sm-10">
+                                            <input class="form-control" type="date" name="healthId" id="example-date-input" value="2022-01-01">
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <label for="6" class="col-sm-2 col-form-label">本人郑重承诺</label>
+                                        <div class="col-sm-10">
+                                            <input  type="checkbox" name="healthMatter"  value="TRUE" id="6">
+                                            为疫情防控，本人同意以上信息依法提交疫情防控部门统筹管理。<p></p>
+                                            <input  type="checkbox" name="healthMatter" value="TRUE" >
+                                            上述信息是我本人填写，本人对信息内容的真实性和完整性负责。同时，本人保证遵守疫情防控的各项规定，配合并听从各项措施和要求。
+                                        </div>
+                                    </div>
+
+                                    <!-- end row -->
+                                    <div class="row mb-3">
+                                        <label>备注</label>
+                                        <div>
+                                            <textarea required="" class="form-control" rows="5" name="healthDetails"></textarea>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="row mb-3">
+                                        <div>
+                                            <button type="submit" class="btn btn-primary waves-effect waves-light me-1">
+                                                Submit
+                                            </button>
+                                            <button type="reset" class="btn btn-secondary waves-effect">
+                                                Cancel
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div> <!-- end col -->
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table id="resident_table" class="table table-bordered table-nowrap mb-0 table-hover">
+                                        <thead>
+                                        <tr>
+                                            <th scope="col" class="text-center .col-md-">id</th>
+                                            <th scope="col" class="text-center .col-md-">
+                                                姓名
+                                            </th>
+                                            <th scope="col" class="text-center .col-md-">
+                                                上报日期
+                                            </th>
+                                            <th scope="col" class="text-center .col-md-">
+                                                体温（℃）
+                                            </th>
+                                            <th scope="col" class="text-center .col-md-">
+                                                健康状况
+                                            </th>
+                                            <th scope="col" class="text-center .col-md-">
+                                                家人健康状况
+                                            </th>
+                                            <th scope="col" class="text-center .col-md-">
+                                                有无接触情况
+                                            </th>
+                                            <th scope="col" class="text-center .col-md-">
+                                                备注
+                                            </th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr scope="col" class="text-center .col-md-" th:each="health:${healthPageInfo.list}">
+                                            <td th:text="${health.healthIds}">id</td>
+                                            <td th:text="${health.healthName}">姓名</td>
+                                            <td th:text="${#dates.format(health.healthId,'yyyy-MM-dd')}">申请时间</td>
+                                            <td th:text="${health.healthTemperature+'℃'}">体温</td>
+                                            <td th:text="${health.healthStatus}">健康状况</td>
+                                            <td th:text="${health.healthOtherstatus}">家人健康状况</td>
+                                            <td th:text="${health.healthIstouch == '0'? '无':'有'}">有无接触情况</td>
+                                            <td th:text="${health.healthDetails}"></td>
+
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <p></p>
+                                <div class="row">
+                                    <div class="col-md-2" >
+                                        共<span th:text="${healthPageInfo.total}"></span>条记录,
+                                        <span th:text="${healthPageInfo.pageNum}"></span>页/
+                                        <span th:text="${healthPageInfo.pages}"></span>页
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

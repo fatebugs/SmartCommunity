@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sc.ssm.dao.ResidentMapper">
+  <resultMap id="BaseResultMap" type="com.sc.ssm.pojo.Resident">
+    <id column="residents_id" jdbcType="INTEGER" property="residentsId" />
+    <result column="residents_name" jdbcType="VARCHAR" property="residentsName" />
+    <result column="residents_password" jdbcType="VARCHAR" property="residentsPassword" />
+    <result column="residents_sex" jdbcType="CHAR" property="residentsSex" />
+    <result column="residents_adress" jdbcType="VARCHAR" property="residentsAdress" />
+    <result column="residents_phone" jdbcType="VARCHAR" property="residentsPhone" />
+    <result column="residents_identity" jdbcType="VARCHAR" property="residentsIdentity" />
+    <result column="residents_security" jdbcType="CHAR" property="residentsSecurity" />
+    <result column="residents_time" jdbcType="TIMESTAMP" property="residentsTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    residents_id, residents_name, residents_password, residents_sex, residents_adress, 
+    residents_phone, residents_identity, residents_security, residents_time
+  </sql>
+  <select id="selectByExample" parameterType="com.sc.ssm.pojo.ResidentExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sc_residents
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sc_residents
+    where residents_id = #{residentsId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sc_residents
+    where residents_id = #{residentsId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sc.ssm.pojo.ResidentExample">
+    delete from sc_residents
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sc.ssm.pojo.Resident">
+    insert into sc_residents (residents_id, residents_name, residents_password, 
+      residents_sex, residents_adress, residents_phone, 
+      residents_identity, residents_security, residents_time
+      )
+    values (#{residentsId,jdbcType=INTEGER}, #{residentsName,jdbcType=VARCHAR}, #{residentsPassword,jdbcType=VARCHAR}, 
+      #{residentsSex,jdbcType=CHAR}, #{residentsAdress,jdbcType=VARCHAR}, #{residentsPhone,jdbcType=VARCHAR}, 
+      #{residentsIdentity,jdbcType=VARCHAR}, #{residentsSecurity,jdbcType=CHAR}, #{residentsTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sc.ssm.pojo.Resident">
+    insert into sc_residents
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="residentsId != null">
+        residents_id,
+      </if>
+      <if test="residentsName != null">
+        residents_name,
+      </if>
+      <if test="residentsPassword != null">
+        residents_password,
+      </if>
+      <if test="residentsSex != null">
+        residents_sex,
+      </if>
+      <if test="residentsAdress != null">
+        residents_adress,
+      </if>
+      <if test="residentsPhone != null">
+        residents_phone,
+      </if>
+      <if test="residentsIdentity != null">
+        residents_identity,
+      </if>
+      <if test="residentsSecurity != null">
+        residents_security,
+      </if>
+      <if test="residentsTime != null">
+        residents_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="residentsId != null">
+        #{residentsId,jdbcType=INTEGER},
+      </if>
+      <if test="residentsName != null">
+        #{residentsName,jdbcType=VARCHAR},
+      </if>
+      <if test="residentsPassword != null">
+        #{residentsPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="residentsSex != null">
+        #{residentsSex,jdbcType=CHAR},
+      </if>
+      <if test="residentsAdress != null">
+        #{residentsAdress,jdbcType=VARCHAR},
+      </if>
+      <if test="residentsPhone != null">
+        #{residentsPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="residentsIdentity != null">
+        #{residentsIdentity,jdbcType=VARCHAR},
+      </if>
+      <if test="residentsSecurity != null">
+        #{residentsSecurity,jdbcType=CHAR},
+      </if>
+      <if test="residentsTime != null">
+        #{residentsTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sc.ssm.pojo.ResidentExample" resultType="java.lang.Long">
+    select count(*) from sc_residents
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <select id="selectAll" resultType="com.sc.ssm.pojo.Resident">
+    select * from sc_residents
+  </select>
+    <select id="queryAllResidentId" resultType="java.lang.Integer">
+      select residents_id from sc_residents where residents_identity = 'user';
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+    update sc_residents
+    <set>
+      <if test="record.residentsId != null">
+        residents_id = #{record.residentsId,jdbcType=INTEGER},
+      </if>
+      <if test="record.residentsName != null">
+        residents_name = #{record.residentsName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.residentsPassword != null">
+        residents_password = #{record.residentsPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.residentsSex != null">
+        residents_sex = #{record.residentsSex,jdbcType=CHAR},
+      </if>
+      <if test="record.residentsAdress != null">
+        residents_adress = #{record.residentsAdress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.residentsPhone != null">
+        residents_phone = #{record.residentsPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.residentsIdentity != null">
+        residents_identity = #{record.residentsIdentity,jdbcType=VARCHAR},
+      </if>
+      <if test="record.residentsSecurity != null">
+        residents_security = #{record.residentsSecurity,jdbcType=CHAR},
+      </if>
+      <if test="record.residentsTime != null">
+        residents_time = #{record.residentsTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update sc_residents
+    set residents_id = #{record.residentsId,jdbcType=INTEGER},
+      residents_name = #{record.residentsName,jdbcType=VARCHAR},
+      residents_password = #{record.residentsPassword,jdbcType=VARCHAR},
+      residents_sex = #{record.residentsSex,jdbcType=CHAR},
+      residents_adress = #{record.residentsAdress,jdbcType=VARCHAR},
+      residents_phone = #{record.residentsPhone,jdbcType=VARCHAR},
+      residents_identity = #{record.residentsIdentity,jdbcType=VARCHAR},
+      residents_security = #{record.residentsSecurity,jdbcType=CHAR},
+      residents_time = #{record.residentsTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sc.ssm.pojo.Resident">
+    update sc_residents
+    <set>
+      <if test="residentsName != null">
+        residents_name = #{residentsName,jdbcType=VARCHAR},
+      </if>
+      <if test="residentsPassword != null">
+        residents_password = #{residentsPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="residentsSex != null">
+        residents_sex = #{residentsSex,jdbcType=CHAR},
+      </if>
+      <if test="residentsAdress != null">
+        residents_adress = #{residentsAdress,jdbcType=VARCHAR},
+      </if>
+      <if test="residentsPhone != null">
+        residents_phone = #{residentsPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="residentsIdentity != null">
+        residents_identity = #{residentsIdentity,jdbcType=VARCHAR},
+      </if>
+      <if test="residentsSecurity != null">
+        residents_security = #{residentsSecurity,jdbcType=CHAR},
+      </if>
+      <if test="residentsTime != null">
+        residents_time = #{residentsTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where residents_id = #{residentsId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sc.ssm.pojo.Resident">
+    update sc_residents
+    set residents_name = #{residentsName,jdbcType=VARCHAR},
+      residents_password = #{residentsPassword,jdbcType=VARCHAR},
+      residents_sex = #{residentsSex,jdbcType=CHAR},
+      residents_adress = #{residentsAdress,jdbcType=VARCHAR},
+      residents_phone = #{residentsPhone,jdbcType=VARCHAR},
+      residents_identity = #{residentsIdentity,jdbcType=VARCHAR},
+      residents_security = #{residentsSecurity,jdbcType=CHAR},
+      residents_time = #{residentsTime,jdbcType=TIMESTAMP}
+    where residents_id = #{residentsId,jdbcType=INTEGER}
+  </update>
+</mapper>

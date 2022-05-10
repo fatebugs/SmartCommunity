@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description">
+    <meta content="Themesdesign" name="author">
+    <title>核酸检测报告上传</title>
+    <!-- Plugins css -->
+    <link th:href="@{/static/css/dropzone.min.css}" rel="stylesheet" type="text/css">
+
+    <div th:include="user-index::user-head"></div>
+</head>
+<body data-topbar="dark">
+
+    <div id="layout-wrapper">
+        <div th:replace="user-index::user-header"></div>
+        <div th:replace="user-index::user-menu"></div>
+
+        <div class="main-content">
+
+            <div class="page-content">
+                <div class="container-fluid">
+
+                    <!-- start page title -->
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                                <h4 class="mb-sm-0">Form File Upload</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end page title -->
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+
+                                    <h4 class="card-title">核酸检测报告上传</h4>
+                                    <p class="card-title-desc">
+                                    </p>
+
+                                    <div>
+                                        <form th:action="@{/fileupload}" class="dropzone" method="post"
+                                            enctype="multipart/form-data">
+                                            <div class="fallback">
+                                                <input name="file" type="file" multiple="multiple">
+                                            </div>
+                                            <div class="dz-message needsclick">
+                                                <div class="mb-3">
+                                                    <i class="display-4 text-muted ri-upload-cloud-2-line"></i>
+                                                </div>
+
+                                                <h4>Drop files here or click to upload.</h4>
+                                            </div>
+                                            <div class="text-center mt-4">
+                                                <input type="button" class="btn btn-primary waves-effect waves-light" value="Send Files">
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> <!-- end col -->
+                    </div> <!-- end row -->
+                </div> <!-- container-fluid -->
+            </div>
+            <!-- End Page-content -->
+
+            <footer class="footer">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            Copyright &copy; 2022.Company name All rights reserved.
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="text-sm-end d-none d-sm-block">
+                                Crafted with <i class="mdi mdi-heart text-danger"></i> by Themesdesign
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+
+        </div>
+
+    </div>
+    <!-- Right bar overlay-->
+    <div class="rightbar-overlay"></div>
+
+    <!-- JAVASCRIPT -->
+    <script th:src="@{/static/js/jquery.min.js}"></script>
+    <script th:src="@{/static/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/static/js/metisMenu.min.js}"></script>
+    <script th:src="@{/static/js/simplebar.min.js}"></script>
+    <script th:src="@{/static/js/waves.min.js}"></script>
+
+    <!-- Plugins js -->
+    <script th:src="@{/static/js/dropzone.min.js}"></script>
+
+    <script th:src="@{/static/js/app.js}"></script>
+</body>
+
+</html>

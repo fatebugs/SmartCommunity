@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta content="Premium Multipurpose Admin & Dashboard Template" name="description">
+  <meta content="Themesdesign" name="author">
+  <title>出入申请</title>
+  <div th:include="user-index::user-head"></div>
+</head>
+<body data-topbar="dark">
+<div id="layout-wrapper">
+  <div th:replace="user-index::user-header"></div>
+  <!-- ========== Left Sidebar Start ========== -->
+  <div th:replace="user-index::user-menu"></div>
+  <!-- Left Sidebar End -->
+
+  <div class="main-content">
+    <div class="page-content">
+      <div class="container-fluid">
+
+        <!-- start page title -->
+        <div class="row">
+          <div class="col-12">
+            <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+              <h4 class="mb-sm-0"></h4>
+            </div>
+          </div>
+        </div>
+        <!-- end page title -->
+
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-body">
+                <h4 class="card-title">废品回收订单</h4>
+                <form th:action="@{/userOrderSave}" method="post">
+                  <div class="row mb-3">
+                    <label for="example-text-input" class="col-sm-2 col-form-label">订单编号</label>
+                    <div class="col-sm-10">
+                      <input class="form-control" type="text" name="orderUuid" th:value="${UUID}" id="example-text-input">
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <label for="example-text-input" class="col-sm-2 col-form-label">申请人</label>
+                    <div class="col-sm-10">
+                      <input class="form-control" type="text" name="orderName" th:value="${resident.residentsName}" id="example-text-input">
+                    </div>
+                  </div>
+
+                  <input type="hidden" name="orderState" value="0" >
+                  <!-- end row -->
+                  <div class="row mb-3">
+                    <label for="1" class="col-sm-2 col-form-label">电话</label>
+                    <div class="col-sm-10">
+                      <input class="form-control" type="tel" name="orderPhone" id="1" th:value="${resident.residentsPhone}">
+                    </div>
+                  </div>
+                  <!-- end row -->
+                  <div class="row mb-3">
+                    <label for="example-tel-input" class="col-sm-2 col-form-label">住址</label>
+                    <div class="col-sm-10">
+                      <input class="form-control" type="text" name="orderAdress" th:value="${resident.residentsAdress}" id="example-tel-input">
+                    </div>
+                  </div>
+                  <!-- end row -->
+                  <div class="row mb-3">
+                    <label for="example-date-input" class="col-sm-2 col-form-label">上门服务日期</label>
+                    <div class="col-sm-10">
+                      <input class="form-control" type="date" name="orderTime" id="example-date-input" value="2022-01-01">
+                    </div>
+                  </div>
+                  <!-- end row -->
+                  <div class="row mb-3">
+                    <label>备注</label>
+                    <div>
+                      <textarea required="" class="form-control" rows="5" name="orderRemark"></textarea>
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <div>
+                      <button type="submit" class="btn btn-primary waves-effect waves-light me-1">
+                        提交
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div> <!-- end col -->
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table id="resident_table" class="table table-bordered table-nowrap mb-0 table-hover">
+                    <thead>
+                    <tr>
+                      <th scope="col" class="text-center .col-md-">订单号</th>
+                      <th scope="col" class="text-center .col-md-">
+                        姓名
+                      </th>
+                      <th scope="col" class="text-center .col-md-">
+                        申请时间
+                      </th>
+                      <th scope="col" class="text-center .col-md-">
+                        电话
+                      </th>
+                      <th scope="col" class="text-center .col-md-">
+                        住址
+                      </th>
+                      <th scope="col" class="text-center .col-md-">
+                        备注信息
+                      </th>
+                      <th scope="col" class="text-center .col-md-">
+                        处理进度
+                      </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr scope="col" class="text-center .col-md-" th:each="order:${orderPageInfo.list}">
+                      <td th:text="${order.orderUuid}"></td>
+                      <td th:text="${order.orderName}">姓名</td>
+                      <td th:text="${#dates.format(order.orderTime,'yyyy-MM-dd')}">申请时间</td>
+                      <td th:text="${order.orderPhone}">电话</td>
+                      <td th:text="${order.orderAdress}">住址</td>
+                      <td th:text="${order.orderRemark}"></td>
+                      <td th:text="${order.orderState == '0' ? '待处理中':'即将上门收货'}">审核状态</td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <p></p>
+                <div class="row">
+                  <div class="col-md-2" >
+                    共<span th:text="${orderPageInfo.total}"></span>条记录,
+                    <span th:text="${orderPageInfo.pageNum}"></span>页/
+                    <span th:text="${orderPageInfo.pages}"></span>页
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

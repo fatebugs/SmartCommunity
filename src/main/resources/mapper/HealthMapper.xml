@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sc.ssm.dao.HealthMapper">
+  <resultMap id="BaseResultMap" type="com.sc.ssm.pojo.Health">
+    <id column="health_id" jdbcType="DATE" property="healthId" />
+    <id column="health_ids" jdbcType="VARCHAR" property="healthIds" />
+    <result column="health_name" jdbcType="VARCHAR" property="healthName" />
+    <result column="health_temperature" jdbcType="VARCHAR" property="healthTemperature" />
+    <result column="health_status" jdbcType="VARCHAR" property="healthStatus" />
+    <result column="health_otherstatus" jdbcType="VARCHAR" property="healthOtherstatus" />
+    <result column="health_istouch" jdbcType="CHAR" property="healthIstouch" />
+    <result column="health_phone" jdbcType="VARCHAR" property="healthPhone" />
+    <result column="health_adree" jdbcType="VARCHAR" property="healthAdree" />
+    <result column="health_details" jdbcType="VARCHAR" property="healthDetails" />
+    <result column="health_matter" jdbcType="VARCHAR" property="healthMatter" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    health_id, health_ids, health_name, health_temperature, health_status, health_otherstatus, 
+    health_istouch, health_phone, health_adree, health_details, health_matter
+  </sql>
+  <select id="selectByExample" parameterType="com.sc.ssm.pojo.HealthExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sc_health
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="map" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sc_health
+    where health_id = #{healthId,jdbcType=DATE}
+      and health_ids = #{healthIds,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="map">
+    delete from sc_health
+    where health_id = #{healthId,jdbcType=DATE}
+      and health_ids = #{healthIds,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sc.ssm.pojo.HealthExample">
+    delete from sc_health
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sc.ssm.pojo.Health">
+    insert into sc_health (health_id, health_ids, health_name, 
+      health_temperature, health_status, health_otherstatus, 
+      health_istouch, health_phone, health_adree, 
+      health_details, health_matter)
+    values (#{healthId,jdbcType=DATE}, #{healthIds,jdbcType=VARCHAR}, #{healthName,jdbcType=VARCHAR}, 
+      #{healthTemperature,jdbcType=VARCHAR}, #{healthStatus,jdbcType=VARCHAR}, #{healthOtherstatus,jdbcType=VARCHAR}, 
+      #{healthIstouch,jdbcType=CHAR}, #{healthPhone,jdbcType=VARCHAR}, #{healthAdree,jdbcType=VARCHAR}, 
+      #{healthDetails,jdbcType=VARCHAR}, #{healthMatter,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sc.ssm.pojo.Health">
+    insert into sc_health
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="healthId != null">
+        health_id,
+      </if>
+      <if test="healthIds != null">
+        health_ids,
+      </if>
+      <if test="healthName != null">
+        health_name,
+      </if>
+      <if test="healthTemperature != null">
+        health_temperature,
+      </if>
+      <if test="healthStatus != null">
+        health_status,
+      </if>
+      <if test="healthOtherstatus != null">
+        health_otherstatus,
+      </if>
+      <if test="healthIstouch != null">
+        health_istouch,
+      </if>
+      <if test="healthPhone != null">
+        health_phone,
+      </if>
+      <if test="healthAdree != null">
+        health_adree,
+      </if>
+      <if test="healthDetails != null">
+        health_details,
+      </if>
+      <if test="healthMatter != null">
+        health_matter,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="healthId != null">
+        #{healthId,jdbcType=DATE},
+      </if>
+      <if test="healthIds != null">
+        #{healthIds,jdbcType=VARCHAR},
+      </if>
+      <if test="healthName != null">
+        #{healthName,jdbcType=VARCHAR},
+      </if>
+      <if test="healthTemperature != null">
+        #{healthTemperature,jdbcType=VARCHAR},
+      </if>
+      <if test="healthStatus != null">
+        #{healthStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="healthOtherstatus != null">
+        #{healthOtherstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="healthIstouch != null">
+        #{healthIstouch,jdbcType=CHAR},
+      </if>
+      <if test="healthPhone != null">
+        #{healthPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="healthAdree != null">
+        #{healthAdree,jdbcType=VARCHAR},
+      </if>
+      <if test="healthDetails != null">
+        #{healthDetails,jdbcType=VARCHAR},
+      </if>
+      <if test="healthMatter != null">
+        #{healthMatter,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sc.ssm.pojo.HealthExample" resultType="java.lang.Long">
+    select count(*) from sc_health
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <select id="selectAllById" resultType="com.sc.ssm.pojo.Health">
+    select * from sc_health where health_ids = #{id,jdbcType=VARCHAR}
+  </select>
+    <select id="selectByTemperature" resultType="com.sc.ssm.pojo.Health">
+      SELECT * FROM sc_health WHERE health_temperature >= #{temperature,jdbcType=INTEGER}
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+    update sc_health
+    <set>
+      <if test="record.healthId != null">
+        health_id = #{record.healthId,jdbcType=DATE},
+      </if>
+      <if test="record.healthIds != null">
+        health_ids = #{record.healthIds,jdbcType=VARCHAR},
+      </if>
+      <if test="record.healthName != null">
+        health_name = #{record.healthName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.healthTemperature != null">
+        health_temperature = #{record.healthTemperature,jdbcType=VARCHAR},
+      </if>
+      <if test="record.healthStatus != null">
+        health_status = #{record.healthStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.healthOtherstatus != null">
+        health_otherstatus = #{record.healthOtherstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.healthIstouch != null">
+        health_istouch = #{record.healthIstouch,jdbcType=CHAR},
+      </if>
+      <if test="record.healthPhone != null">
+        health_phone = #{record.healthPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.healthAdree != null">
+        health_adree = #{record.healthAdree,jdbcType=VARCHAR},
+      </if>
+      <if test="record.healthDetails != null">
+        health_details = #{record.healthDetails,jdbcType=VARCHAR},
+      </if>
+      <if test="record.healthMatter != null">
+        health_matter = #{record.healthMatter,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update sc_health
+    set health_id = #{record.healthId,jdbcType=DATE},
+      health_ids = #{record.healthIds,jdbcType=VARCHAR},
+      health_name = #{record.healthName,jdbcType=VARCHAR},
+      health_temperature = #{record.healthTemperature,jdbcType=VARCHAR},
+      health_status = #{record.healthStatus,jdbcType=VARCHAR},
+      health_otherstatus = #{record.healthOtherstatus,jdbcType=VARCHAR},
+      health_istouch = #{record.healthIstouch,jdbcType=CHAR},
+      health_phone = #{record.healthPhone,jdbcType=VARCHAR},
+      health_adree = #{record.healthAdree,jdbcType=VARCHAR},
+      health_details = #{record.healthDetails,jdbcType=VARCHAR},
+      health_matter = #{record.healthMatter,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sc.ssm.pojo.Health">
+    update sc_health
+    <set>
+      <if test="healthName != null">
+        health_name = #{healthName,jdbcType=VARCHAR},
+      </if>
+      <if test="healthTemperature != null">
+        health_temperature = #{healthTemperature,jdbcType=VARCHAR},
+      </if>
+      <if test="healthStatus != null">
+        health_status = #{healthStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="healthOtherstatus != null">
+        health_otherstatus = #{healthOtherstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="healthIstouch != null">
+        health_istouch = #{healthIstouch,jdbcType=CHAR},
+      </if>
+      <if test="healthPhone != null">
+        health_phone = #{healthPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="healthAdree != null">
+        health_adree = #{healthAdree,jdbcType=VARCHAR},
+      </if>
+      <if test="healthDetails != null">
+        health_details = #{healthDetails,jdbcType=VARCHAR},
+      </if>
+      <if test="healthMatter != null">
+        health_matter = #{healthMatter,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where health_id = #{healthId,jdbcType=DATE}
+      and health_ids = #{healthIds,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sc.ssm.pojo.Health">
+    update sc_health
+    set health_name = #{healthName,jdbcType=VARCHAR},
+      health_temperature = #{healthTemperature,jdbcType=VARCHAR},
+      health_status = #{healthStatus,jdbcType=VARCHAR},
+      health_otherstatus = #{healthOtherstatus,jdbcType=VARCHAR},
+      health_istouch = #{healthIstouch,jdbcType=CHAR},
+      health_phone = #{healthPhone,jdbcType=VARCHAR},
+      health_adree = #{healthAdree,jdbcType=VARCHAR},
+      health_details = #{healthDetails,jdbcType=VARCHAR},
+      health_matter = #{healthMatter,jdbcType=VARCHAR}
+    where health_id = #{healthId,jdbcType=DATE}
+      and health_ids = #{healthIds,jdbcType=VARCHAR}
+  </update>
+</mapper>

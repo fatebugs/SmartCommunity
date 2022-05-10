@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sc.ssm.dao.VaccinationMapper">
+  <resultMap id="BaseResultMap" type="com.sc.ssm.pojo.Vaccination">
+    <id column="vaccination_id" jdbcType="INTEGER" property="vaccinationId" />
+    <result column="vaccination_name" jdbcType="VARCHAR" property="vaccinationName" />
+    <result column="vaccination_sex" jdbcType="CHAR" property="vaccinationSex" />
+    <result column="vaccination_phone" jdbcType="VARCHAR" property="vaccinationPhone" />
+    <result column="vaccination_adress" jdbcType="VARCHAR" property="vaccinationAdress" />
+    <result column="vaccination_first" jdbcType="CHAR" property="vaccinationFirst" />
+    <result column="vaccination_firstTime" jdbcType="DATE" property="vaccinationFirsttime" />
+    <result column="vaccination_second" jdbcType="CHAR" property="vaccinationSecond" />
+    <result column="vaccination_secondTime" jdbcType="DATE" property="vaccinationSecondtime" />
+    <result column="vaccination_third" jdbcType="CHAR" property="vaccinationThird" />
+    <result column="vaccination_thirdTime" jdbcType="DATE" property="vaccinationThirdtime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    vaccination_id, vaccination_name, vaccination_sex, vaccination_phone, vaccination_adress, 
+    vaccination_first, vaccination_firstTime, vaccination_second, vaccination_secondTime, 
+    vaccination_third, vaccination_thirdTime
+  </sql>
+  <select id="selectByExample" parameterType="com.sc.ssm.pojo.VaccinationExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sc_vaccination
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sc_vaccination
+    where vaccination_id = #{vaccinationId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sc_vaccination
+    where vaccination_id = #{vaccinationId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sc.ssm.pojo.VaccinationExample">
+    delete from sc_vaccination
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sc.ssm.pojo.Vaccination">
+    insert into sc_vaccination (vaccination_id, vaccination_name, vaccination_sex, 
+      vaccination_phone, vaccination_adress, vaccination_first, 
+      vaccination_firstTime, vaccination_second, vaccination_secondTime, 
+      vaccination_third, vaccination_thirdTime)
+    values (#{vaccinationId,jdbcType=INTEGER}, #{vaccinationName,jdbcType=VARCHAR}, #{vaccinationSex,jdbcType=CHAR}, 
+      #{vaccinationPhone,jdbcType=VARCHAR}, #{vaccinationAdress,jdbcType=VARCHAR}, #{vaccinationFirst,jdbcType=CHAR}, 
+      #{vaccinationFirsttime,jdbcType=DATE}, #{vaccinationSecond,jdbcType=CHAR}, #{vaccinationSecondtime,jdbcType=DATE}, 
+      #{vaccinationThird,jdbcType=CHAR}, #{vaccinationThirdtime,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sc.ssm.pojo.Vaccination">
+    insert into sc_vaccination
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="vaccinationId != null">
+        vaccination_id,
+      </if>
+      <if test="vaccinationName != null">
+        vaccination_name,
+      </if>
+      <if test="vaccinationSex != null">
+        vaccination_sex,
+      </if>
+      <if test="vaccinationPhone != null">
+        vaccination_phone,
+      </if>
+      <if test="vaccinationAdress != null">
+        vaccination_adress,
+      </if>
+      <if test="vaccinationFirst != null">
+        vaccination_first,
+      </if>
+      <if test="vaccinationFirsttime != null">
+        vaccination_firstTime,
+      </if>
+      <if test="vaccinationSecond != null">
+        vaccination_second,
+      </if>
+      <if test="vaccinationSecondtime != null">
+        vaccination_secondTime,
+      </if>
+      <if test="vaccinationThird != null">
+        vaccination_third,
+      </if>
+      <if test="vaccinationThirdtime != null">
+        vaccination_thirdTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="vaccinationId != null">
+        #{vaccinationId,jdbcType=INTEGER},
+      </if>
+      <if test="vaccinationName != null">
+        #{vaccinationName,jdbcType=VARCHAR},
+      </if>
+      <if test="vaccinationSex != null">
+        #{vaccinationSex,jdbcType=CHAR},
+      </if>
+      <if test="vaccinationPhone != null">
+        #{vaccinationPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="vaccinationAdress != null">
+        #{vaccinationAdress,jdbcType=VARCHAR},
+      </if>
+      <if test="vaccinationFirst != null">
+        #{vaccinationFirst,jdbcType=CHAR},
+      </if>
+      <if test="vaccinationFirsttime != null">
+        #{vaccinationFirsttime,jdbcType=DATE},
+      </if>
+      <if test="vaccinationSecond != null">
+        #{vaccinationSecond,jdbcType=CHAR},
+      </if>
+      <if test="vaccinationSecondtime != null">
+        #{vaccinationSecondtime,jdbcType=DATE},
+      </if>
+      <if test="vaccinationThird != null">
+        #{vaccinationThird,jdbcType=CHAR},
+      </if>
+      <if test="vaccinationThirdtime != null">
+        #{vaccinationThirdtime,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sc.ssm.pojo.VaccinationExample" resultType="java.lang.Long">
+    select count(*) from sc_vaccination
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update sc_vaccination
+    <set>
+      <if test="record.vaccinationId != null">
+        vaccination_id = #{record.vaccinationId,jdbcType=INTEGER},
+      </if>
+      <if test="record.vaccinationName != null">
+        vaccination_name = #{record.vaccinationName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vaccinationSex != null">
+        vaccination_sex = #{record.vaccinationSex,jdbcType=CHAR},
+      </if>
+      <if test="record.vaccinationPhone != null">
+        vaccination_phone = #{record.vaccinationPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vaccinationAdress != null">
+        vaccination_adress = #{record.vaccinationAdress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vaccinationFirst != null">
+        vaccination_first = #{record.vaccinationFirst,jdbcType=CHAR},
+      </if>
+      <if test="record.vaccinationFirsttime != null">
+        vaccination_firstTime = #{record.vaccinationFirsttime,jdbcType=DATE},
+      </if>
+      <if test="record.vaccinationSecond != null">
+        vaccination_second = #{record.vaccinationSecond,jdbcType=CHAR},
+      </if>
+      <if test="record.vaccinationSecondtime != null">
+        vaccination_secondTime = #{record.vaccinationSecondtime,jdbcType=DATE},
+      </if>
+      <if test="record.vaccinationThird != null">
+        vaccination_third = #{record.vaccinationThird,jdbcType=CHAR},
+      </if>
+      <if test="record.vaccinationThirdtime != null">
+        vaccination_thirdTime = #{record.vaccinationThirdtime,jdbcType=DATE},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update sc_vaccination
+    set vaccination_id = #{record.vaccinationId,jdbcType=INTEGER},
+      vaccination_name = #{record.vaccinationName,jdbcType=VARCHAR},
+      vaccination_sex = #{record.vaccinationSex,jdbcType=CHAR},
+      vaccination_phone = #{record.vaccinationPhone,jdbcType=VARCHAR},
+      vaccination_adress = #{record.vaccinationAdress,jdbcType=VARCHAR},
+      vaccination_first = #{record.vaccinationFirst,jdbcType=CHAR},
+      vaccination_firstTime = #{record.vaccinationFirsttime,jdbcType=DATE},
+      vaccination_second = #{record.vaccinationSecond,jdbcType=CHAR},
+      vaccination_secondTime = #{record.vaccinationSecondtime,jdbcType=DATE},
+      vaccination_third = #{record.vaccinationThird,jdbcType=CHAR},
+      vaccination_thirdTime = #{record.vaccinationThirdtime,jdbcType=DATE}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sc.ssm.pojo.Vaccination">
+    update sc_vaccination
+    <set>
+      <if test="vaccinationName != null">
+        vaccination_name = #{vaccinationName,jdbcType=VARCHAR},
+      </if>
+      <if test="vaccinationSex != null">
+        vaccination_sex = #{vaccinationSex,jdbcType=CHAR},
+      </if>
+      <if test="vaccinationPhone != null">
+        vaccination_phone = #{vaccinationPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="vaccinationAdress != null">
+        vaccination_adress = #{vaccinationAdress,jdbcType=VARCHAR},
+      </if>
+      <if test="vaccinationFirst != null">
+        vaccination_first = #{vaccinationFirst,jdbcType=CHAR},
+      </if>
+      <if test="vaccinationFirsttime != null">
+        vaccination_firstTime = #{vaccinationFirsttime,jdbcType=DATE},
+      </if>
+      <if test="vaccinationSecond != null">
+        vaccination_second = #{vaccinationSecond,jdbcType=CHAR},
+      </if>
+      <if test="vaccinationSecondtime != null">
+        vaccination_secondTime = #{vaccinationSecondtime,jdbcType=DATE},
+      </if>
+      <if test="vaccinationThird != null">
+        vaccination_third = #{vaccinationThird,jdbcType=CHAR},
+      </if>
+      <if test="vaccinationThirdtime != null">
+        vaccination_thirdTime = #{vaccinationThirdtime,jdbcType=DATE},
+      </if>
+    </set>
+    where vaccination_id = #{vaccinationId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sc.ssm.pojo.Vaccination">
+    update sc_vaccination
+    set vaccination_name = #{vaccinationName,jdbcType=VARCHAR},
+      vaccination_sex = #{vaccinationSex,jdbcType=CHAR},
+      vaccination_phone = #{vaccinationPhone,jdbcType=VARCHAR},
+      vaccination_adress = #{vaccinationAdress,jdbcType=VARCHAR},
+      vaccination_first = #{vaccinationFirst,jdbcType=CHAR},
+      vaccination_firstTime = #{vaccinationFirsttime,jdbcType=DATE},
+      vaccination_second = #{vaccinationSecond,jdbcType=CHAR},
+      vaccination_secondTime = #{vaccinationSecondtime,jdbcType=DATE},
+      vaccination_third = #{vaccinationThird,jdbcType=CHAR},
+      vaccination_thirdTime = #{vaccinationThirdtime,jdbcType=DATE}
+    where vaccination_id = #{vaccinationId,jdbcType=INTEGER}
+  </update>
+</mapper>

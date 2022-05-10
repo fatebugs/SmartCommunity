@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sc.ssm.dao.ScCloseContactsMapper">
+
+    <resultMap id="BaseResultMap" type="com.sc.ssm.domain.ScCloseContacts">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="ccName" column="cc_name" jdbcType="VARCHAR"/>
+            <result property="ccSex" column="cc_sex" jdbcType="INTEGER"/>
+            <result property="ccPhone" column="cc_phone" jdbcType="VARCHAR"/>
+            <result property="ccAdress" column="cc_adress" jdbcType="VARCHAR"/>
+            <result property="ccUsername" column="cc_username" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,cc_name,cc_sex,
+        cc_phone,cc_adress,cc_username
+    </sql>
+</mapper>

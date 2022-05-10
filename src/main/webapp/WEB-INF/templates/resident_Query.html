@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <title>resident</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta content="Premium Multipurpose Admin & Dashboard Template" name="description">
+  <meta content="Themesdesign" name="author">
+  <div th:include="admin-index::admin-head"></div>
+
+  <script type="text/javascript" th:src="@{/static/vue/vue.js}"></script>
+  <script type="text/javascript" th:src="@{/static/jquery/jquery-3.6.0.min.js}"></script>
+</head>
+<body data-topbar="dark">
+
+<div id="layout-wrapper">
+
+  <div th:replace="admin-index::admin-header"></div>
+
+  <!-- ========== Left Sidebar Start ========== -->
+  <div th:replace="admin-index::admin-menu"></div>
+  <!-- Left Sidebar End -->
+  <!-- ============================================================== -->
+  <!-- Start right Content here -->
+  <!-- Begin page -->
+  <div class="main-content">
+
+    <div class="page-content">
+      <div class="container-fluid">
+        <!-- start page title -->
+        <div class="row">
+          <div class="col-12">
+            <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+              <h4 class="mb-sm-0"></h4>
+            </div>
+          </div>
+        </div>
+        <!-- end page title -->
+
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-body">
+
+                <h4 class="card-title">查询结果</h4>
+                <p class="card-title-desc"></p>
+                <div class="row">
+                  <div class="col-md-3"></div>
+                  <div class="col-md-6">
+                    <form id="search_form" th:action="@{/residentfind}">
+                      <div class="input-group">
+                        <div class="input-group-btn">
+                          <select class="form-control" id="select_name">
+                            <option selected>--查询条件--</option>
+                            <option value="residentsName">姓名</option>
+                            <option value="residentsPhone">电话</option>
+                            <option value="residentsAdress">住址</option>
+                            <option value="residentsSecurity">健康状态</option>
+                          </select>
+                        </div>
+                        <input id="hidden_type" type="hidden" name="type" value="">
+                        <input id="hidden_keyword" name="keyword" type="text" class="form-control" placeholder="Search for...">
+
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary " type="submit" id="query_btn">
+                                <span class="glyphicon glyphicon-search" aria-hidden="true"></span> 搜索
+                            </button>
+                        </span>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a class="btn btn-success  waves-effect waves-light" th:href="@{/residentInsert}" role="button">添加</a>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+                <br>
+                <br>
+                <div class="table-responsive">
+                  <table id="resident_table" class="table table-bordered table-nowrap mb-0 table-hover">
+                    <thead>
+                    <tr>
+                      <th scope="col" class="text-center .col-md-">id</th>
+                      <th scope="col" class="text-center .col-md-">
+                        姓名
+                      </th>
+                      <th scope="col" class="text-center .col-md-">
+                        性别
+                      </th>
+                      <th scope="col" class="text-center .col-md-">
+                        电话
+                      </th>
+                      <th scope="col" class="text-center .col-md-">
+                        住址
+                      </th>
+                      <th scope="col" class="text-center .col-md-">
+                        入住时间
+                      </th>
+                      <th scope="col" class="text-center .col-md-">
+                        健康状态
+                      </th>
+                      <th scope="col" class="text-center .col-md-">
+                        操作
+                      </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr scope="col" class="text-center .col-md-" th:each="resident:${findList.list}">
+                      <td th:text="${resident.residentsId}"></td>
+                      <td th:text="${resident.residentsName}">姓名</td>
+                      <td th:text="${resident.residentsSex == '0' ? '女':'男'}">性别</td>
+                      <td th:text="${resident.residentsPhone}">电话</td>
+                      <td th:text="${resident.residentsAdress}">住址</td>
+                      <td th:text="${#dates.format(resident.residentsTime,'yyyy-MM-dd')}">入住时间</td>
+                      <td th:text="${resident.residentsSecurity == '0' ? '健康':'确诊'}">健康状态</td>
+                      <td>
+                        <a class="btn btn-primary waves-effect waves-light" th:href="@{'/resident/'+${resident.residentsId}}" role="button">编辑</a>
+                        <!--<button type="button" id="update_res_btn" class="btn btn-primary btn-block waves-effect waves-light" data-bs-toggle="modal" data-bs-target="#composemodal">编辑</button>-->
+                        <a id="delete_resident" class="btn btn-danger" th:href="@{'/resident/'+${resident.residentsId}}" role="button"
+                           @click="delete_resident">删除</a>
+                      </td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <p></p>
+                <div class="row">
+                  <div class="col-md-2" >
+                    共<span th:text="${findList.total}"></span>条记录,
+                    <span th:text="${findList.pageNum}"></span>页/
+                    <span th:text="${findList.pages}"></span>页
+                  </div>
+                  <div class="col-md-7"></div>
+                  <div class="col-md-3" >
+                    <nav aria-label="Page navigation example">
+                      <ul class="pagination">
+                        <li class="page-item">
+                          <a class="page-link" th:href="@{/residentfind(page=1,row=${findList.pageSize},type=${type},keyword=${keyword})}">首页</a>
+                        </li>
+                        <li class="page-item"
+                            th:class="${findList.hasPreviousPage}?'page-item':'page-item disabled'">
+                          <a class="page-link"
+                             th:href="@{/residentfind(page=${findList.pageNum}-1,row=${findList.pageSize},type=${type},keyword=${keyword})}"
+                             th:if="${findList.hasPreviousPage}">Previous</a>
+                          <a class="page-link" href="javascript:void(0);"
+                             th:if="${not findList.hasPreviousPage}">Previous</a>
+                        </li>
+                        <li class="page-item"
+                            th:each="navigatepageNum:${findList.navigatepageNums}"
+                            th:class="${findList.pageNum == navigatepageNum} ? 'page-item active' : 'page-item'">
+                          <a class="page-link"
+                             th:href="@{/residentfind(page=${navigatepageNum},row=${findList.pageSize},type=${type},keyword=${keyword})}"
+                             th:text="${navigatepageNum}"></a>
+                        </li>
+                        <li class="page-item"
+                            th:class="${findList.hasNextPage}?'page-item':'page-item disabled'">
+                          <a class="page-link"
+                             th:href="@{/residentfind(page=${findList.pageNum}+1,row=${findList.pageSize},type=${type},keyword=${keyword})}"
+                             th:if="${findList.hasNextPage}">Next</a>
+                          <a class="page-link" href="javascript:void(0);"
+                             th:if="${not findList.hasNextPage}">Next</a>
+                        </li>
+                        <li class="page-item">
+                          <a class="page-link" th:href="@{/residentfind(page=${findList.pages},row=${findList.pageSize},type=${type},keyword=${keyword})}">尾页</a>
+                        </li>
+                      </ul>
+                    </nav>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- end col -->
+
+        </div> <!-- end row -->
+
+      </div> <!-- container-fluid -->
+    </div>
+    <!-- End Page-content -->
+
+
+    <footer class="footer">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-sm-6">
+            Copyright &copy; 2022.Company name All rights reserved.
+          </div>
+          <div class="col-sm-6">
+            <div class="text-sm-end d-none d-sm-block">
+              Crafted with <i class="mdi mdi-heart text-danger"></i> by Themesdesign
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- 作用：通过超链接控制表单的提交，将post请求转换为delete请求 -->
+  <form id="delete_resident_from" method="post">
+    <!-- HiddenHttpMethodFilter要求：必须传输_method请求参数，并且值为最终的请求方式 -->
+    <input type="hidden" name="_method" value="delete"/>
+  </form>
+
+  <script type="text/javascript">
+    var vue=new Vue({
+      el:"#delete_resident",
+      methods:{
+        delete_resident:function (event){
+          //通过id获取表单标签
+          var delete_form = document.getElementById("delete_resident_from");
+          //将触发事件的超链接的href属性为表单的action属性赋值
+          delete_form.action = event.target.href;
+          //提交表单
+          delete_form.submit();
+          //阻止超链接的默认跳转行为
+          event.preventDefault();
+        }
+      }
+    });
+  </script>
+
+  <!--条件查询时、点击下拉列表，修改表单隐藏域的value值-->
+  <script type="text/javascript">
+    $("#select_name").change(function () {
+      var name = $("#select_name option:selected").val();
+      $("#search_form input[name=type]").val(name)
+    });
+  </script>
+
+  <!--点击搜索按钮时，若为空，则弹出警告框-->
+  <script type="text/javascript">
+    $("#query_btn").click(function (event) {
+      var value = $("#hidden_keyword").val();
+      if(value==""){
+        alert("请输入查询条件")
+        event.preventDefault();   //阻止默认行为
+      }
+    })
+  </script>
+
+  <!-- END layout-wrapper -->
+  <!-- ============================================================== -->
+  <!-- end main content-->
+
+</div>
+<div th:replace="admin-index::admin-foot"></div>
+</body>
+</html>

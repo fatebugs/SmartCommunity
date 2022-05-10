@@ -1,0 +1,33 @@
+package com.sc.ssm.dao;
+
+import com.sc.ssm.pojo.Order;
+import com.sc.ssm.pojo.OrderExample;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
+
+public interface OrderMapper {
+    long countByExample(OrderExample example);
+
+    int deleteByExample(OrderExample example);
+
+    int deleteByPrimaryKey(String orderUuid);
+
+    int insert(Order record);
+
+    int insertSelective(Order record);
+
+    List<Order> selectByExample(OrderExample example);
+
+    Order selectByPrimaryKey(String orderUuid);
+
+    int updateByExampleSelective(@Param("record") Order record, @Param("example") OrderExample example);
+
+    int updateByExample(@Param("record") Order record, @Param("example") OrderExample example);
+
+    int updateByPrimaryKeySelective(Order record);
+
+    int updateByPrimaryKey(Order record);
+
+    List<Order> selectBysame(@Param("name") String name, @Param("phone") String phone);
+}

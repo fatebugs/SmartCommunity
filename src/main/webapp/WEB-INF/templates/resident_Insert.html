@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>新增用户信息</title>
+
+    <div th:include="admin-index::admin-head"></div>
+    <script type="text/javascript" th:src="@{/static/vue/vue.js}"></script>
+    <script type="text/javascript" th:src="@{/static/jquery/jquery-3.6.0.min.js}"></script>
+</head>
+<body data-topbar="dark">
+    <div id="layout-wrapper">
+        <div th:replace="admin-index::admin-header"></div>
+
+        <div th:replace="admin-index::admin-menu"></div>
+
+        <div class="main-content">
+            <div class="page-content">
+                <div class="container-fluid">
+                    <!-- start page title -->
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                                <h4 class="mb-sm-0">新增用户信息</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end page title -->
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">用户信息表</h4>
+                                    <form th:action="@{/resident}" method="post">
+                                    <!-- end row -->
+                                    <div class="row mb-3">
+                                        <label class="col-sm-2 col-form-label">注册id</label>
+                                        <div class="col-sm-10">
+                                            <select class="form-select" aria-label="Default select example" name="residentsId">
+                                                <option th:each="id:${idList}" th:text="${id}" th:value="${id}"></option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <input class="form-control" type="hidden"  name="residentsPassword" value="123456">
+                                    <input class="form-control" type="hidden"  name="residentsIdentity" value="user">
+
+                                    <div class="row mb-3">
+                                        <label for="example-text-input" class="col-sm-2 col-form-label">姓名</label>
+                                        <div class="col-sm-10">
+                                            <input class="form-control" type="text" id="example-text-input" name="residentsName">
+                                        </div>
+                                    </div>
+                                    <!-- end row -->
+                                    <div class="row mb-3">
+                                        <label for="example-search-input" class="col-sm-2 col-form-label">性别</label>
+                                        <div class="col-sm-10">
+                                            <input  type="radio"  id="example-search-input" name="residentsSex" value="1" checked> 男
+                                            <input  type="radio"  name="residentsSex" value="0"> 女
+                                        </div>
+                                    </div>
+                                    <!-- end row -->
+                                    <div class="row mb-3">
+                                        <label for="example-tel-input" class="col-sm-2 col-form-label">电话</label>
+                                        <div class="col-sm-10">
+                                            <input class="form-control" type="tel" placeholder="1-(555)-555-5555" id="example-tel-input" name="residentsPhone">
+                                        </div>
+                                    </div>
+                                    <!-- end row -->
+                                    <div class="row mb-3">
+                                        <label for="example-password-input" class="col-sm-2 col-form-label">住址</label>
+                                        <div class="col-sm-10">
+                                            <input class="form-control" type="text" name="residentsAdress" id="example-password-input">
+                                        </div>
+                                    </div>
+
+                                    <!-- end row -->
+                                    <div class="row mb-3">
+                                        <label for="example-date-input" class="col-sm-2 col-form-label">入住时间</label>
+                                        <div class="col-sm-10">
+                                            <input class="form-control" type="date" name="residentsTime" id="example-date-input" value="2022-01-01">
+                                        </div>
+                                    </div>
+
+                                    <!-- end row -->
+                                    <div class="row mb-3">
+                                        <label for="example-number-input" class="col-sm-2 col-form-label">健康状态</label>
+                                        <div class="col-sm-10">
+                                            <input  type="radio" name="residentsSecurity" id="example-number-input" value="0" checked> 健康
+                                            <input  type="radio" name="residentsSecurity"  value="1"> 确诊
+                                        </div>
+                                    </div>
+                                    <a class="btn btn-secondary  waves-effect waves-light" th:href="@{/resident}" role="button">取消</a>
+                                    <input type="submit" class="btn btn-primary waves-effect waves-light" value="保存">
+                                </form>
+                                </div>
+                            </div>
+                        </div> <!-- end col -->
+                    </div>
+                    <!-- end row -->
+
+                </div> <!-- container-fluid -->
+            </div>
+            <!-- End Page-content -->
+
+            <footer class="footer">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            Copyright © 2022.Company name All rights reserved
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="text-sm-end d-none d-sm-block">
+                                Crafted with <i class="mdi mdi-heart text-danger"></i> by Themesdesign
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+
+        </div>
+    </div>
+    <div th:replace="admin-index::admin-foot"></div>
+</body>
+</html>

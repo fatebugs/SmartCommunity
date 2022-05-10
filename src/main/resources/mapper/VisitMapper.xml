@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sc.ssm.dao.VisitMapper">
+  <resultMap id="BaseResultMap" type="com.sc.ssm.pojo.Visit">
+    <id column="visit_id" jdbcType="DATE" property="visitId" />
+    <id column="visit_ids" jdbcType="VARCHAR" property="visitIds" />
+    <result column="visit_name" jdbcType="VARCHAR" property="visitName" />
+    <result column="visit_phone" jdbcType="VARCHAR" property="visitPhone" />
+    <result column="visit_adress" jdbcType="VARCHAR" property="visitAdress" />
+    <result column="visit_details" jdbcType="VARCHAR" property="visitDetails" />
+    <result column="visit_time" jdbcType="VARCHAR" property="visitTime" />
+    <result column="visit_state" jdbcType="CHAR" property="visitState" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    visit_id, visit_ids, visit_name, visit_phone, visit_adress, visit_details, visit_time, 
+    visit_state
+  </sql>
+  <select id="selectByExample" parameterType="com.sc.ssm.pojo.VisitExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sc_visit
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="map" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sc_visit
+    where visit_id = #{visitId,jdbcType=DATE}
+      and visit_ids = #{visitIds,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="map">
+    delete from sc_visit
+    where visit_id = #{visitId,jdbcType=DATE}
+      and visit_ids = #{visitIds,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sc.ssm.pojo.VisitExample">
+    delete from sc_visit
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sc.ssm.pojo.Visit">
+    insert into sc_visit (visit_id, visit_ids, visit_name, 
+      visit_phone, visit_adress, visit_details, 
+      visit_time, visit_state)
+    values (#{visitId,jdbcType=DATE}, #{visitIds,jdbcType=VARCHAR}, #{visitName,jdbcType=VARCHAR}, 
+      #{visitPhone,jdbcType=VARCHAR}, #{visitAdress,jdbcType=VARCHAR}, #{visitDetails,jdbcType=VARCHAR}, 
+      #{visitTime,jdbcType=VARCHAR}, #{visitState,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sc.ssm.pojo.Visit">
+    insert into sc_visit
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="visitId != null">
+        visit_id,
+      </if>
+      <if test="visitIds != null">
+        visit_ids,
+      </if>
+      <if test="visitName != null">
+        visit_name,
+      </if>
+      <if test="visitPhone != null">
+        visit_phone,
+      </if>
+      <if test="visitAdress != null">
+        visit_adress,
+      </if>
+      <if test="visitDetails != null">
+        visit_details,
+      </if>
+      <if test="visitTime != null">
+        visit_time,
+      </if>
+      <if test="visitState != null">
+        visit_state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="visitId != null">
+        #{visitId,jdbcType=DATE},
+      </if>
+      <if test="visitIds != null">
+        #{visitIds,jdbcType=VARCHAR},
+      </if>
+      <if test="visitName != null">
+        #{visitName,jdbcType=VARCHAR},
+      </if>
+      <if test="visitPhone != null">
+        #{visitPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="visitAdress != null">
+        #{visitAdress,jdbcType=VARCHAR},
+      </if>
+      <if test="visitDetails != null">
+        #{visitDetails,jdbcType=VARCHAR},
+      </if>
+      <if test="visitTime != null">
+        #{visitTime,jdbcType=VARCHAR},
+      </if>
+      <if test="visitState != null">
+        #{visitState,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sc.ssm.pojo.VisitExample" resultType="java.lang.Long">
+    select count(*) from sc_visit
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+    <select id="selectAllById" resultType="com.sc.ssm.pojo.Visit">
+      select * from sc_visit where visit_ids = #{id,jdbcType=VARCHAR}
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+    update sc_visit
+    <set>
+      <if test="record.visitId != null">
+        visit_id = #{record.visitId,jdbcType=DATE},
+      </if>
+      <if test="record.visitIds != null">
+        visit_ids = #{record.visitIds,jdbcType=VARCHAR},
+      </if>
+      <if test="record.visitName != null">
+        visit_name = #{record.visitName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.visitPhone != null">
+        visit_phone = #{record.visitPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.visitAdress != null">
+        visit_adress = #{record.visitAdress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.visitDetails != null">
+        visit_details = #{record.visitDetails,jdbcType=VARCHAR},
+      </if>
+      <if test="record.visitTime != null">
+        visit_time = #{record.visitTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.visitState != null">
+        visit_state = #{record.visitState,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update sc_visit
+    set visit_id = #{record.visitId,jdbcType=DATE},
+      visit_ids = #{record.visitIds,jdbcType=VARCHAR},
+      visit_name = #{record.visitName,jdbcType=VARCHAR},
+      visit_phone = #{record.visitPhone,jdbcType=VARCHAR},
+      visit_adress = #{record.visitAdress,jdbcType=VARCHAR},
+      visit_details = #{record.visitDetails,jdbcType=VARCHAR},
+      visit_time = #{record.visitTime,jdbcType=VARCHAR},
+      visit_state = #{record.visitState,jdbcType=CHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sc.ssm.pojo.Visit">
+    update sc_visit
+    <set>
+      <if test="visitName != null">
+        visit_name = #{visitName,jdbcType=VARCHAR},
+      </if>
+      <if test="visitPhone != null">
+        visit_phone = #{visitPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="visitAdress != null">
+        visit_adress = #{visitAdress,jdbcType=VARCHAR},
+      </if>
+      <if test="visitDetails != null">
+        visit_details = #{visitDetails,jdbcType=VARCHAR},
+      </if>
+      <if test="visitTime != null">
+        visit_time = #{visitTime,jdbcType=VARCHAR},
+      </if>
+      <if test="visitState != null">
+        visit_state = #{visitState,jdbcType=CHAR},
+      </if>
+    </set>
+    where visit_id = #{visitId,jdbcType=DATE}
+      and visit_ids = #{visitIds,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sc.ssm.pojo.Visit">
+    update sc_visit
+    set visit_name = #{visitName,jdbcType=VARCHAR},
+      visit_phone = #{visitPhone,jdbcType=VARCHAR},
+      visit_adress = #{visitAdress,jdbcType=VARCHAR},
+      visit_details = #{visitDetails,jdbcType=VARCHAR},
+      visit_time = #{visitTime,jdbcType=VARCHAR},
+      visit_state = #{visitState,jdbcType=CHAR}
+    where visit_id = #{visitId,jdbcType=DATE}
+      and visit_ids = #{visitIds,jdbcType=VARCHAR}
+  </update>
+</mapper>
