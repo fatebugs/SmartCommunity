@@ -6,10 +6,7 @@ import com.sc.ssm.junit.Result;
 import com.sc.ssm.service.ScDisinfectingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Date: 2022/5/11
@@ -55,7 +52,7 @@ public class DisinfectingController {
 
     @RequestMapping("/update")
     @ResponseBody
-    public Result update(ScDisinfecting scDisinfecting) {
+    public Result update(@RequestBody ScDisinfecting scDisinfecting) {
         boolean flag = scDisinfectingService.updateById(scDisinfecting);
         if (flag) {
             return Result.error();
@@ -65,7 +62,7 @@ public class DisinfectingController {
 
     @RequestMapping("/save")
     @ResponseBody
-    public Result save(ScDisinfecting scDisinfecting) {
+    public Result save(@RequestBody ScDisinfecting scDisinfecting) {
         boolean flag = scDisinfectingService.save(scDisinfecting);
         if (flag) {
             return Result.error();
