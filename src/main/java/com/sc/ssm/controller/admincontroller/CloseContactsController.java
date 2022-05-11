@@ -6,10 +6,7 @@ import com.sc.ssm.junit.Result;
 import com.sc.ssm.service.ScCloseContactsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Date: 2022/5/10
@@ -58,7 +55,7 @@ public class CloseContactsController {
     }
     @RequestMapping("/update")
     @ResponseBody
-    public Result update(ScCloseContacts scCloseContacts){
+    public Result update(@RequestBody ScCloseContacts scCloseContacts){
         boolean flag = scCloseContactsService.updateById(scCloseContacts);
         if (flag) {
             return Result.error();
@@ -67,7 +64,7 @@ public class CloseContactsController {
     }
     @RequestMapping("/save")
     @ResponseBody
-    public Result save(ScCloseContacts scCloseContacts){
+    public Result save(@RequestBody ScCloseContacts scCloseContacts){
         boolean flag = scCloseContactsService.save(scCloseContacts);
         if (flag) {
             return Result.error();
