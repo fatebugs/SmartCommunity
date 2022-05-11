@@ -204,9 +204,11 @@
                                     </table>
                                 </div>
                                 <div class="table-control">
+                                    <button class="tablebtn normal" @click="handleShift(2)" >首页</button>
                                     <button class="tablebtn normal" @click="handleShift(0)" :disabled="dataMessage.page -1 == 0 ? true : false">上一页</button>
                                     <button style="outline: none;border: none;color: black" disabled="disabled">{{dataMessage.page}}</button>
                                     <button class="tablebtn normal" @click="handleShift(1)" :disabled="dataMessage.page + 1 > dataMessage.pages ? true : false">下一页</button>
+                                    <button class="tablebtn normal" @click="handleShift(3)" >尾页</button>
                                 </div>
                             </div>
                         </div>
@@ -339,7 +341,6 @@
                     axios.get("http://localhost:2002/SmartCommunity_war_exploded/cc/findCC",{params:{type:this.selectType,check:this.searchValue,page:this.dataMessage.page}})
                         .then(res => {
                             this.closePersonList = res.data.data.list;
-                            // console.log(res.data);
                             this.dataMessage={
                                 page:res.data.data.pageNum,
                                 row:res.data.data.pageSize,
@@ -437,34 +438,16 @@
                 handleShift(pageMode){
                     if(pageMode == 0){
                         this.dataMessage.page--;
-                        axios.get("http://localhost:2002/SmartCommunity_war_exploded/cc/findCC",{params:{type:this.selectType,check:this.searchValue,page:this.dataMessage.page}})
-                            .then(res => {
-                                this.closePersonList = res.data.data.list;
-                                // console.log(res.data);
-                                this.dataMessage={
-                                    page:res.data.data.pageNum,
-                                    row:res.data.data.pageSize,
-                                    pages:res.data.data.pages
-                                }
-                            })
-                            .catch(err => {
-                                console.log('错误' + err)
-                            })
+                        this.getClosePerson();
                     }else if(pageMode == 1){
                         this.dataMessage.page++;
-                        axios.get("http://localhost:2002/SmartCommunity_war_exploded/cc/findCC",{params:{type:this.selectType,check:this.searchValue,page:this.dataMessage.page}})
-                            .then(res => {
-                                this.closePersonList = res.data.data.list;
-                                // console.log(res.data);
-                                this.dataMessage={
-                                    page:res.data.data.pageNum,
-                                    row:res.data.data.pageSize,
-                                    pages:res.data.data.pages
-                                }
-                            })
-                            .catch(err => {
-                                console.log('错误' + err)
-                            })
+                        this.getClosePerson();
+                    }else if(pageMode == 2){
+                        this.dataMessage.page = 1;
+                        this.getClosePerson();
+                    }else if(pageMode == 3){
+                        this.dataMessage.page = this.dataMessage.pages;
+                        this.getClosePerson();
                     }
                 }
             }
