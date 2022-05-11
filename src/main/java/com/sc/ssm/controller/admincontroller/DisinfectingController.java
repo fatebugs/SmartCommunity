@@ -36,7 +36,7 @@ public class DisinfectingController {
      * @param type 查询的条件
      * @return
      */
-    @RequestMapping("/findCC")
+    @RequestMapping("/find")
     @ResponseBody
     public Result findCC(@RequestParam(value = "page", defaultValue = "1") int page, @RequestParam(value = "row", defaultValue = "5") int row, @RequestParam(value = "type", required = false, defaultValue = "") String type, @RequestParam(value = "check", required = false, defaultValue = "") String check) {
         PageInfo<ScDisinfecting> dc = scDisinfectingService.findDc(page, row, type, check);
