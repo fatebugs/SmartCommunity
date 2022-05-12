@@ -273,7 +273,7 @@
                         <td>消杀时刻</td>
                         <td>
                             <input v-show="!mode" disabled type="text" v-model="userInfo.disinfectTime" ><br>
-                            <input type="datetime-local" v-model="userInfo.disinfectTime" >
+                            <input type="date" v-model="userInfo.disinfectTime" >
                         </td>
                     </tr>
                     <tr>
@@ -416,7 +416,7 @@
                 },
                 //时间转换
                 timeChange1(){//毫秒转时间
-                    this.userInfo.disinfectTime = moment(this.userInfo.disinfectTime).format('YYYY-MM-DD HH:mm:ss');
+                    this.userInfo.disinfectTime = moment(this.userInfo.disinfectTime).format('YYYY-MM-DD');
                 },
                 timeChange2(){//时间转毫秒
                     this.userInfo.disinfectTime = (new Date(this.userInfo.disinfectTime)).getTime();
@@ -437,7 +437,7 @@
                                     id: item.id,
                                     community:item.community,
                                     floor:item.floor,
-                                    disinfectTime:`${this.ymd(item.disinfectTime)}${this.hms(item.disinfectTime)}`,
+                                    disinfectTime:`${this.ymd(item.disinfectTime)}`,
                                     disinfectResult:item.disinfectResult,
                                     disinfectStaff:item.disinfectStaff,
                                     disinfectWay:item.disinfectWay
