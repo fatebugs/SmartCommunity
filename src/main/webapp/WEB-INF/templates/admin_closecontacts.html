@@ -95,7 +95,7 @@
         padding: 10px 0;
         width: 100%;
         display: flex;
-        justify-content: right;
+        justify-content: space-between;
         align-items: center;
     }
     .table-control button{
@@ -204,11 +204,16 @@
                                     </table>
                                 </div>
                                 <div class="table-control">
-                                    <button class="tablebtn normal" @click="handleShift(2)" >首页</button>
-                                    <button class="tablebtn normal" @click="handleShift(0)" :disabled="dataMessage.page -1 == 0 ? true : false">上一页</button>
-                                    <button style="outline: none;border: none;color: black" disabled="disabled">{{dataMessage.page}}</button>
-                                    <button class="tablebtn normal" @click="handleShift(1)" :disabled="dataMessage.page + 1 > dataMessage.pages ? true : false">下一页</button>
-                                    <button class="tablebtn normal" @click="handleShift(3)" >尾页</button>
+                                    <div style="color: darkgray">
+                                        共 {{dataMessage.pages}} 页
+                                    </div>
+                                    <div>
+                                        <button class="tablebtn normal" @click="handleShift(2)" >首页</button>
+                                        <button class="tablebtn normal" @click="handleShift(0)" :disabled="dataMessage.page -1 == 0 ? true : false">上一页</button>
+                                        <button style="outline: none;border: none;color: black" disabled="disabled">{{dataMessage.page}}</button>
+                                        <button class="tablebtn normal" @click="handleShift(1)" :disabled="dataMessage.page + 1 > dataMessage.pages ? true : false">下一页</button>
+                                        <button class="tablebtn normal" @click="handleShift(3)" >尾页</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -314,7 +319,7 @@
                 dialogTag:"修改信息",
                 mode:0,
                 userInfo:{
-                  id:0,
+                  id:null,
                   ccName:"",
                     ccSex:"",
                     ccPhone:"",
@@ -336,9 +341,21 @@
               this.getClosePerson();
             },
             methods:{
+                //添加信息表单验证
+                checkAddInfo(){
+                  if(this.userInfo.ccName != "" && this.userInfo.ccUsername != "" && this.userInfo.ccIsolationWay != "" && this.userInfo.ccIsolationTime != "" && this.userInfo.ccAdress != "" && this.userInfo.ccPhone != "" && this.userInfo.ccSex != "")
+                      return true;
+                  return false;
+                },
+                //修改信息表单验证
+                checkEditInfo(){
+                    if(this.userInfo.id != null && this.userInfo.ccName != "" && this.userInfo.ccUsername != "" && this.userInfo.ccIsolationWay != "" && this.userInfo.ccIsolationTime != "" && this.userInfo.ccAdress != "" && this.userInfo.ccPhone != "" && this.userInfo.ccSex != "")
+                        return true;
+                    return false;
+                },
                 //获取密接人员信息
                 getClosePerson(){
-                    axios.get("http://localhost:2002/SmartCommunity_war_exploded/cc/findCC",{params:{type:this.selectType,check:this.searchValue,page:this.dataMessage.page}})
+                    axios.get("findCC",{params:{type:this.selectType,check:this.searchValue,page:this.dataMessage.page}})
                         .then(res => {
                             this.closePersonList = res.data.data.list;
                             this.dataMessage={
@@ -395,35 +412,42 @@
                 //确定修改
                 handleEnterEdit(){
                     if(this.mode == 0){
-                        axios.post("http://localhost:2002/SmartCommunity_war_exploded/cc/update",this.userInfo).then(res => {
-                            // console.log(res.data);
-                            if(res.data.code != 200) return alert("修改失败");
-                            alert("修改成功");
-                            this.dialogFlag = false;
-                            this.mengbanFlag = false;
-                            this.getClosePerson();
-                        }).catch(err => {
+                        if(this.checkEditInfo()){
+                            axios.post("update",this.userInfo).then(res => {
+                                // console.log(res.data);
+                                if(res.data.code != 200) return alert("修改失败");
+                                alert("修改成功");
+                                this.dialogFlag = false;
+                                this.mengbanFlag = false;
+                                this.getClosePerson();
+                            }).catch(err => {
                                 alert("修改失败"+err);
                                 console.log('错误' + err);
                             })
+                        }
                     }else if(this.mode == 1){
-                        axios.post("http://localhost:2002/SmartCommunity_war_exploded/cc/save",this.userInfo).then(res => {
-                            if(res.data.code != 200) return alert("添加失败");
-                            alert("添加成功");
-                            this.dialogFlag = false;
-                            this.mengbanFlag = false;
-                            this.getClosePerson();
-                        })
-                            .catch(err => {
-                                alert("添加失败"+err);
-                                console.log('错误' + err);
+                        if(this.checkAddInfo()){
+                            axios.post("save",this.userInfo).then(res => {
+                                if(res.data.code != 200) return alert("添加失败");
+                                alert("添加成功");
+                                this.dialogFlag = false;
+                                this.mengbanFlag = false;
+                                this.getClosePerson();
                             })
+                                .catch(err => {
+                                    alert("添加失败"+err);
+                                    console.log('错误' + err);
+                                })
+                        }else{
+                            alert("请输入正确信息");
+                        }
+
                     }
 
                 },
                 //点击删除
                 handleDelete(index){
-                    axios.delete(`http://localhost:2002/SmartCommunity_war_exploded/cc/delete/${this.closePersonList[index].id}`)
+                    axios.delete(`delete/${this.closePersonList[index].id}`)
                     .then(res=>{
                         if(res.data.code != 200) return alert("删除失败");
                         alert("删除成功");
