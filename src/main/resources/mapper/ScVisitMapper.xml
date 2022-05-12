@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sc.ssm.dao.ScVisitMapper">
+
+    <resultMap id="BaseResultMap" type="com.sc.ssm.domain.ScVisit">
+            <id property="visitId" column="visit_id" jdbcType="DATE"/>
+            <id property="visitIds" column="visit_ids" jdbcType="VARCHAR"/>
+            <result property="visitName" column="visit_name" jdbcType="VARCHAR"/>
+            <result property="visitPhone" column="visit_phone" jdbcType="VARCHAR"/>
+            <result property="visitAdress" column="visit_adress" jdbcType="VARCHAR"/>
+            <result property="visitDetails" column="visit_details" jdbcType="VARCHAR"/>
+            <result property="visitTime" column="visit_time" jdbcType="VARCHAR"/>
+            <result property="visitState" column="visit_state" jdbcType="CHAR"/>
+            <result property="visitExternal" column="visit_external" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        visit_id,visit_ids,visit_name,
+        visit_phone,visit_adress,visit_details,
+        visit_time,visit_state,visit_external
+    </sql>
+</mapper>

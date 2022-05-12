@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sc.ssm.dao.ScVaccinationMapper">
+
+    <resultMap id="BaseResultMap" type="com.sc.ssm.domain.ScVaccination">
+            <id property="vaccinationId" column="vaccination_id" jdbcType="INTEGER"/>
+            <result property="vaccinationName" column="vaccination_name" jdbcType="VARCHAR"/>
+            <result property="vaccinationSex" column="vaccination_sex" jdbcType="CHAR"/>
+            <result property="vaccinationPhone" column="vaccination_phone" jdbcType="VARCHAR"/>
+            <result property="vaccinationAdress" column="vaccination_adress" jdbcType="VARCHAR"/>
+            <result property="vaccinationFirst" column="vaccination_first" jdbcType="CHAR"/>
+            <result property="vaccinationFirsttime" column="vaccination_firstTime" jdbcType="DATE"/>
+            <result property="vaccinationSecond" column="vaccination_second" jdbcType="CHAR"/>
+            <result property="vaccinationSecondtime" column="vaccination_secondTime" jdbcType="DATE"/>
+            <result property="vaccinationThird" column="vaccination_third" jdbcType="CHAR"/>
+            <result property="vaccinationThirdtime" column="vaccination_thirdTime" jdbcType="DATE"/>
+            <result property="vaccinationCheck" column="vaccination_check" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        vaccination_id,vaccination_name,vaccination_sex,
+        vaccination_phone,vaccination_adress,vaccination_first,
+        vaccination_firstTime,vaccination_second,vaccination_secondTime,
+        vaccination_third,vaccination_thirdTime,vaccination_check
+    </sql>
+</mapper>

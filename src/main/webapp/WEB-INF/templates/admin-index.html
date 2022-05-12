@@ -511,25 +511,25 @@
                         </li>
 
                         <li>
-                            <a href="javascript: void(0);" class="has-arrow waves-effect">
+                            <a th:href="@{/sv/vaccination}" class="has-arrow waves-effect">
                                 <i class="ri-heart-2-line"></i>
                                 <span>疫苗接种管理</span>
                             </a>
-                            <ul class="sub-menu" aria-expanded="true">
-                                <li>
-                                    <a href="email-read.html">
-                                        <i class="ri-check-line"></i>
-                                        <span>已接种</span>
-                                    </a>
-                                </li>
+<!--                            <ul class="sub-menu" aria-expanded="true">-->
+<!--                                <li>-->
+<!--                                    <a href="email-read.html">-->
+<!--                                        <i class="ri-check-line"></i>-->
+<!--                                        <span>已接种</span>-->
+<!--                                    </a>-->
+<!--                                </li>-->
 
-                                <li>
-                                    <a href="email-read.html">
-                                        <i class="ri-subtract-line"></i>
-                                        <span>未接种</span>
-                                    </a>
-                                </li>
-                            </ul>
+<!--                                <li>-->
+<!--                                    <a href="email-read.html">-->
+<!--                                        <i class="ri-subtract-line"></i>-->
+<!--                                        <span>未接种</span>-->
+<!--                                    </a>-->
+<!--                                </li>-->
+<!--                            </ul>-->
                         </li>
 
                         <li>
@@ -546,14 +546,14 @@
                             </a>
                             <ul class="sub-menu" aria-expanded="false">
                                 <li>
-                                    <a href="email-read.html">
+                                    <a th:href="@{/svc/visitUser}">
                                         <i class="ri-login-box-line"></i>
                                         <span>用户出入申请</span>
                                     </a>
                                 </li>
 
                                 <li>
-                                    <a href="email-read.html">
+                                    <a th:href="@{/svc/visitExternal}">
                                         <i class="ri-login-box-line"></i>
                                         <span>访客出入申请</span>
                                     </a>
@@ -562,7 +562,7 @@
                         </li>
 
                         <li>
-                            <a href="javascript: void(0);" class="waves-effect">
+                            <a th:href="@{/hc/health}" class="waves-effect">
                                 <i class="ri-gallery-upload-line"></i>
                                 <span>健康上报</span>
                             </a>

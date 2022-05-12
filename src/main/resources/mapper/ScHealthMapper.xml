@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sc.ssm.dao.ScHealthMapper">
+
+    <resultMap id="BaseResultMap" type="com.sc.ssm.domain.ScHealth">
+            <id property="healthId" column="health_id" jdbcType="DATE"/>
+            <id property="healthIds" column="health_ids" jdbcType="VARCHAR"/>
+            <result property="healthName" column="health_name" jdbcType="VARCHAR"/>
+            <result property="healthTemperature" column="health_temperature" jdbcType="VARCHAR"/>
+            <result property="healthStatus" column="health_status" jdbcType="VARCHAR"/>
+            <result property="healthOtherstatus" column="health_otherstatus" jdbcType="VARCHAR"/>
+            <result property="healthIstouch" column="health_istouch" jdbcType="CHAR"/>
+            <result property="healthPhone" column="health_phone" jdbcType="VARCHAR"/>
+            <result property="healthAdree" column="health_adree" jdbcType="VARCHAR"/>
+            <result property="healthDetails" column="health_details" jdbcType="VARCHAR"/>
+            <result property="healthMatter" column="health_matter" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        health_id,health_ids,health_name,
+        health_temperature,health_status,health_otherstatus,
+        health_istouch,health_phone,health_adree,
+        health_details,health_matter
+    </sql>
+</mapper>

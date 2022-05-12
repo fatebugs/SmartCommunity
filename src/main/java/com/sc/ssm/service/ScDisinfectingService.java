@@ -10,7 +10,7 @@ import com.sc.ssm.domain.ScDisinfecting;
  */
 public interface ScDisinfectingService extends IService<ScDisinfecting> {
     /**
-     * 查询密切接触者表
+     *
      *
      * @param page
      * @param row
