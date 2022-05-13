@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.sc.ssm.domain.ScCloseContacts;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -13,5 +14,5 @@ import java.util.List;
 public interface ScClassificationService extends IService<ScClassification> {
     PageInfo<ScClassification> findScS(int page, int row, String type, String check);
 
-    List<Integer> findAllId();
+    List<Map<String ,Object>> findAllId();
 }

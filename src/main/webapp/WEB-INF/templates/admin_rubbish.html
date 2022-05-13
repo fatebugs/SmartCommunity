@@ -142,7 +142,7 @@
                                         <div class="input-group">
                                             <div class="input-group-btn">
                                                 <select class="form-control" id="select_name" v-model="selectType">
-                                                    <option value="rubbish_name">垃圾名称</option>
+                                                    <option value="rubbishName">垃圾名称</option>
                                                 </select>
                                             </div>
                                             <input type="text" class="form-control" v-model="searchValue" placeholder="Search for...">
@@ -170,10 +170,10 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr v-for="(item,index) in rubbishList" :key="item.rubbish_id">
+                                        <tr v-for="(item,index) in rubbishList" :key="item.rubbishId">
                                             <td>{{index+1}}</td>
-                                            <td>{{item.rubbish_name}}</td>
-                                            <td>{{item.classification_name}}</td>
+                                            <td>{{item.rubbishName}}</td>
+                                            <td>{{item.classificationName}}</td>
                                             <td>
                                                 <button class="tablebtn normal" @click="handleDialog(0,index)">编辑</button>
                                                 <button class="tablebtn warning" @click="handleDelete(index)">删除</button>
@@ -218,13 +218,13 @@
                     <tr>
                         <td>垃圾名</td>
                         <td>
-                            <input type="text" placeholder="垃圾名" v-model="userInfo.rubbish_name">
+                            <input type="text" placeholder="垃圾名" v-model="userInfo.rubbishName">
                         </td>
                     </tr>
                     <tr>
                         <td>分类名</td>
                         <td>
-                            <select class="form-control" name="class" v-model="userInfo.classification_id">
+                            <select class="form-control" name="class" v-model="userInfo.classificationId">
                                 <option v-for="(item) in classificationList" :key="item.classificationId" :value="item.classificationId">
                                     {{item.classificationName}}
                                 </option>
@@ -266,15 +266,15 @@
             data:{
                 rubbishList:[],
                 classificationList:[],
-                selectType:"rubbish_name",
+                selectType:"rubbishName",
                 searchValue:"",
                 dialogTag:"修改信息",
                 mode:0,
                 userInfo:{
-                    rubbish_id:null,
-                    rubbish_name:"",
-                    classification_name:"",
-                    classification_id:"",
+                    rubbishId:null,
+                    classificationId:"",
+                    rubbishName:"",
+                    classificationName:"",
                 },
                 dialogFlag:false,   //对话框状态
                 mengbanFlag:false,
@@ -292,9 +292,10 @@
             methods:{
                 //获取分类名称
                 getClassification(){
-                    axios.get("http://localhost:2002/SmartCommunity_war_exploded/scc/find",{params:{page:1,row:1000}})
+                    axios.get("findAllId",{params:{page:1,row:1000}})
                         .then(res => {
-                            this.classificationList = res.data.data.list;
+                            this.classificationList = res.data.data;
+                            console.log(this.classificationList);
                         })
                         .catch(err => {
                             console.log('错误' + err)
@@ -302,13 +303,13 @@
                 },
                 //添加信息表单验证
                 checkAddInfo(){
-                    if(this.userInfo.rubbish_name != "" && this.userInfo.classification_name != "" && this.userInfo.classification_id != "")
+                    if(this.userInfo.rubbishName != "" && this.userInfo.classificationName != "" && this.userInfo.classificationId != "")
                         return true;
                     return false;
                 },
                 //修改信息表单验证
                 checkEditInfo(){
-                    if(this.userInfo.rubbish_id != null && this.userInfo.rubbish_name != "" && this.userInfo.classification_name != "" && this.userInfo.classification_id != "")
+                    if(this.userInfo.rubbishId != null && this.userInfo.rubbishName != "" && this.userInfo.classificationName != "" && this.userInfo.classificationId != "")
                         return true;
                     return false;
                 },
@@ -336,16 +337,16 @@
                     if(this.mode == 0){
                         this.dialogTag = "修改信息";
                         this.userInfo = {
-                            rubbish_id:this.rubbishList[index].rubbish_id,
-                            rubbish_name:this.rubbishList[index].rubbish_name,
-                            classification_id:this.rubbishList[index].classification_id,
-                            classification_name:this.rubbishList[index].classification_name
+                            rubbishId:this.rubbishList[index].rubbishId,
+                            rubbishName:this.rubbishList[index].rubbishName,
+                            classificationId:this.rubbishList[index].classificationId,
+                            classificationName:this.rubbishList[index].classificationName
                         }
                     }else if(this.mode == 1) {
                         this.dialogTag = "添加信息";
                         this.userInfo = {
                             rubbish_name: "",
-                            classification_id: this.classificationList[0].classificationId,
+                            classificationId: this.classificationList[0].classificationId,
                         }
                     }
                     //打开对话框
@@ -395,7 +396,7 @@
                 },
                 //点击删除
                 handleDelete(index){
-                    axios.delete(`delete/${this.rubbishList[index].rubbish_id}`)
+                    axios.delete(`delete/${this.rubbishList[index].rubbishId}`)
                         .then(res=>{
                             if(res.data.code != 200) return alert("删除失败");
                             alert("删除成功");

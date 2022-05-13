@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -37,7 +38,7 @@ implements ScClassificationService{
     }
 
     @Override
-    public List<Integer> findAllId() {
+    public List<Map<String ,Object>> findAllId() {
         return scClassificationMapper.selectAllId();
     }
 }

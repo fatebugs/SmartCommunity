@@ -12,7 +12,7 @@ import java.util.Map;
  */
 public interface ScRubbishMapper extends BaseMapper<ScRubbish> {
 
-    @Select("select r.rubbish_id `rubbish_id`,r.rubbish_name `rubbish_name`,c.classification_id `classification_id`,c.classification_name `classification_name` from sc_rubbish r,sc_classification c where r.rubbish_fyid=c.classification_id")
+    @Select("select r.rubbish_id `rubbishId`,r.rubbish_name `rubbishName`,c.classification_id `classificationId`,c.classification_name `classificationName` from sc_rubbish r,sc_classification c where r.rubbish_fyid=c.classification_id")
     List<Map<String, Object>> findAll();
 
 }
