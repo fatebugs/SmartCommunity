@@ -224,7 +224,7 @@
                     <tr>
                         <td>分类名</td>
                         <td>
-                            <select class="form-control" name="class" v-model="userInfo.classificationId">
+                            <select class="form-control" name="class" v-model="userInfo.rubbishFyid">
                                 <option v-for="(item) in classificationList" :key="item.classificationId" :value="item.classificationId">
                                     {{item.classificationName}}
                                 </option>
@@ -272,7 +272,7 @@
                 mode:0,
                 userInfo:{
                     rubbishId:null,
-                    classificationId:"",
+                    rubbishFyid:null,
                     rubbishName:"",
                     classificationName:"",
                 },
@@ -295,7 +295,7 @@
                     axios.get("findAllId",{params:{page:1,row:1000}})
                         .then(res => {
                             this.classificationList = res.data.data;
-                            console.log(this.classificationList);
+                            // console.log(this.classificationList);
                         })
                         .catch(err => {
                             console.log('错误' + err)
@@ -303,13 +303,13 @@
                 },
                 //添加信息表单验证
                 checkAddInfo(){
-                    if(this.userInfo.rubbishName != "" && this.userInfo.classificationName != "" && this.userInfo.classificationId != "")
+                    if(this.userInfo.rubbishName != "" && this.userInfo.classificationName != "" && this.userInfo.rubbishFyid != null)
                         return true;
                     return false;
                 },
                 //修改信息表单验证
                 checkEditInfo(){
-                    if(this.userInfo.rubbishId != null && this.userInfo.rubbishName != "" && this.userInfo.classificationName != "" && this.userInfo.classificationId != "")
+                    if(this.userInfo.rubbishId != null && this.userInfo.rubbishName != "" && this.userInfo.rubbishFyid != null)
                         return true;
                     return false;
                 },
@@ -339,14 +339,13 @@
                         this.userInfo = {
                             rubbishId:this.rubbishList[index].rubbishId,
                             rubbishName:this.rubbishList[index].rubbishName,
-                            classificationId:this.rubbishList[index].classificationId,
-                            classificationName:this.rubbishList[index].classificationName
+                            rubbishFyid:this.rubbishList[index].classificationId
                         }
                     }else if(this.mode == 1) {
                         this.dialogTag = "添加信息";
                         this.userInfo = {
                             rubbish_name: "",
-                            classificationId: this.classificationList[0].classificationId,
+                            rubbishFyid: this.classificationList[0].classificationId,
                         }
                     }
                     //打开对话框
@@ -362,6 +361,7 @@
                 handleEnterEdit(){
                     if(this.mode == 0){
                         if(this.checkEditInfo()){
+                            console.log(this.userInfo);
                             axios.post("update",this.userInfo).then(res => {
                                 // console.log(res.data);
                                 if(res.data.code != 200) return alert("修改失败");
