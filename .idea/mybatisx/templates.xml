@@ -64,8 +64,8 @@
             <option name="tableUIInfoList">
               <list>
                 <TableUIInfo>
-                  <option name="className" value="ScRubbish" />
-                  <option name="tableName" value="sc_rubbish" />
+                  <option name="className" value="ScOrder" />
+                  <option name="tableName" value="sc_order" />
                 </TableUIInfo>
               </list>
             </option>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sc.ssm.dao.ScOrderMapper">
+
+    <resultMap id="BaseResultMap" type="com.sc.ssm.domain.ScOrder">
+            <id property="orderUuid" column="order_uuid" jdbcType="VARCHAR"/>
+            <result property="orderName" column="order_name" jdbcType="VARCHAR"/>
+            <result property="orderPhone" column="order_phone" jdbcType="VARCHAR"/>
+            <result property="orderAdress" column="order_adress" jdbcType="VARCHAR"/>
+            <result property="orderTime" column="order_time" jdbcType="DATE"/>
+            <result property="orderRemark" column="order_remark" jdbcType="VARCHAR"/>
+            <result property="orderState" column="order_state" jdbcType="CHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        order_uuid,order_name,order_phone,
+        order_adress,order_time,order_remark,
+        order_state
+    </sql>
+</mapper>
