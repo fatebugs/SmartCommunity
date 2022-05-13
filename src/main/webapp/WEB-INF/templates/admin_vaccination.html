@@ -432,9 +432,7 @@
                     axios.post("update", {vaccinationCheck:this.vaccinationList[index].vaccinationCheck}).then(res => {
                         if (res.data.code != 200) return alert("审核通过失败");
                         alert("审核通过成功");
-                        this.dialogFlag = false;
-                        this.mengbanFlag = false;
-                        this.getDisinfecting();
+                        this.getVaccination();
                     }).catch(err => {
                         alert("审核通过失败" + err);
                         console.log('错误' + err);
