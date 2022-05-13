@@ -14,11 +14,13 @@
             <result property="visitTime" column="visit_time" jdbcType="VARCHAR"/>
             <result property="visitState" column="visit_state" jdbcType="CHAR"/>
             <result property="visitExternal" column="visit_external" jdbcType="INTEGER"/>
+            <result property="visitCheck" column="visit_check" jdbcType="INTEGER"/>
     </resultMap>
 
     <sql id="Base_Column_List">
         visit_id,visit_ids,visit_name,
         visit_phone,visit_adress,visit_details,
-        visit_time,visit_state,visit_external
+        visit_time,visit_state,visit_external,
+        visit_check
     </sql>
 </mapper>

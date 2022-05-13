@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sc.ssm.dao.ScClassificationMapper">
+
+    <resultMap id="BaseResultMap" type="com.sc.ssm.domain.ScClassification">
+            <id property="classificationId" column="classification_id" jdbcType="INTEGER"/>
+            <result property="classificationName" column="classification_name" jdbcType="VARCHAR"/>
+            <result property="classificationInstructions" column="classification_instructions" jdbcType="VARCHAR"/>
+            <result property="classificationDispose" column="classification_dispose" jdbcType="VARCHAR"/>
+            <result property="classificationDetails" column="classification_details" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        classification_id,classification_name,classification_instructions,
+        classification_dispose,classification_details
+    </sql>
+</mapper>

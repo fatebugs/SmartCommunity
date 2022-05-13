@@ -21,45 +21,51 @@ public class ScVisit implements Serializable {
     private Date visitId;
 
     /**
-     *  id
+     *
      */
     @TableId
     private String visitIds;
 
     /**
-     *  姓名
+     * 姓名
      */
     private String visitName;
 
     /**
-     *  手机号
+     * 手机号
      */
     private String visitPhone;
 
     /**
-     *  住址
+     * 地址
      */
     private String visitAdress;
 
     /**
-     *  备注详情
+     * 健康状况
      */
     private String visitDetails;
 
     /**
-     * 出入时间
+     * 上报日期
      */
     private String visitTime;
 
     /**
-     * 审核状态
+     * 有无接触
      */
     private String visitState;
 
     /**
-     * 0为用户1为外部人员
+     * 0为用户
+1为外部人员
      */
     private Integer visitExternal;
+
+    /**
+     * 信息审核
+     */
+    private Integer visitCheck;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
@@ -84,7 +90,8 @@ public class ScVisit implements Serializable {
             && (this.getVisitDetails() == null ? other.getVisitDetails() == null : this.getVisitDetails().equals(other.getVisitDetails()))
             && (this.getVisitTime() == null ? other.getVisitTime() == null : this.getVisitTime().equals(other.getVisitTime()))
             && (this.getVisitState() == null ? other.getVisitState() == null : this.getVisitState().equals(other.getVisitState()))
-            && (this.getVisitExternal() == null ? other.getVisitExternal() == null : this.getVisitExternal().equals(other.getVisitExternal()));
+            && (this.getVisitExternal() == null ? other.getVisitExternal() == null : this.getVisitExternal().equals(other.getVisitExternal()))
+            && (this.getVisitCheck() == null ? other.getVisitCheck() == null : this.getVisitCheck().equals(other.getVisitCheck()));
     }
 
     @Override
@@ -100,6 +107,7 @@ public class ScVisit implements Serializable {
         result = prime * result + ((getVisitTime() == null) ? 0 : getVisitTime().hashCode());
         result = prime * result + ((getVisitState() == null) ? 0 : getVisitState().hashCode());
         result = prime * result + ((getVisitExternal() == null) ? 0 : getVisitExternal().hashCode());
+        result = prime * result + ((getVisitCheck() == null) ? 0 : getVisitCheck().hashCode());
         return result;
     }
 
@@ -118,6 +126,7 @@ public class ScVisit implements Serializable {
         sb.append(", visitTime=").append(visitTime);
         sb.append(", visitState=").append(visitState);
         sb.append(", visitExternal=").append(visitExternal);
+        sb.append(", visitCheck=").append(visitCheck);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
