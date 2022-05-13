@@ -498,9 +498,6 @@
                 handleEnterEdit() {
                     if (this.mode == 0) {
                         this.timeChange2();
-                        console.log(this.userInfo.disinfectTime);
-                        console.log(this.ymd(this.userInfo.disinfectTime),this.hms(this.userInfo.disinfectTime));
-                        console.log(this.userInfo);
                         if(this.checkEditInfo()){
                             axios.post("update", this.userInfo).then(res => {
                                 if (res.data.code != 200) return alert("修改失败");
