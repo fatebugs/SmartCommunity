@@ -12,7 +12,7 @@ import java.util.Map;
  */
 public interface ScClassificationMapper extends BaseMapper<ScClassification> {
 
-    @Select("select classification_id,classification_name from smartcommunity.sc_classification group by classification_id ;")
+    @Select("select classification_id `classificationId`,classification_name `classificationName` from smartcommunity.sc_classification group by classification_id ;")
     List<Map<String ,Object>> selectAllId();
 }
 
