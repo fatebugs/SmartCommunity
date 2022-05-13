@@ -192,12 +192,12 @@
                                 </div>
                                 <div class="table-control">
                                     <div style="color: darkgray">
-                                        共 {{dataMessage.pages}} 页
+                                        共 {{dataMessage.total}} 条记录
                                     </div>
                                     <div>
                                         <button class="tablebtn normal" @click="handleShift(2)" >首页</button>
                                         <button class="tablebtn normal" @click="handleShift(0)" :disabled="dataMessage.page -1 == 0 ? true : false">上一页</button>
-                                        <button style="outline: none;border: none;color: black" disabled="disabled">{{dataMessage.page}}</button>
+                                        <button style="outline: none;border: none;color: black" disabled="disabled">{{dataMessage.page}}/{{dataMessage.pages}}</button>
                                         <button class="tablebtn normal" @click="handleShift(1)" :disabled="dataMessage.page + 1 > dataMessage.pages ? true : false">下一页</button>
                                         <button class="tablebtn normal" @click="handleShift(3)" >尾页</button>
                                     </div>
@@ -299,7 +299,8 @@
                 dataMessage:{
                   page:1,
                     row:5,
-                    pages:0
+                    pages:0,
+                    total:0
                 }
             },
             mounted(){
@@ -325,7 +326,8 @@
                             this.dataMessage={
                                 page:res.data.data.pageNum,
                                 row:res.data.data.pageSize,
-                                pages:res.data.data.pages
+                                pages:res.data.data.pages,
+                                total:res.data.data.total,
                             }
                         })
                         .catch(err => {
