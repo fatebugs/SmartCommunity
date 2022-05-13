@@ -28,9 +28,4 @@ public class AdminHealthController {
         model.addAttribute("healthPageInfo",healthPageInfo);
         return "admin_health";
     }
-
-
-
-
-
 }

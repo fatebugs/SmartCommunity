@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <title>resident</title>
+    <title>用户出入审核</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description">
     <meta content="Themesdesign" name="author">
@@ -10,15 +10,17 @@
 
     <script type="text/javascript" th:src="@{/static/vue/vue.js}"></script>
     <script type="text/javascript" th:src="@{/static/jquery/jquery-3.6.0.min.js}"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script type="text/javascript" th:src="@{/static/js/axios.min.js}"></script>
+    <script src="http://cdn.staticfile.org/moment.js/2.24.0/moment-with-locales.js"></script>
 </head>
 <style>
 
-    html,body{
+    html, body {
         width: 100%;
         height: 100%;
         position: relative;
     }
+
     .tablebtn {
         outline: none;
         border: none;
@@ -27,23 +29,37 @@
         box-sizing: border-box;
         padding: 3px 10px;
     }
-    .normal{
-        background:#0f9cf3;
+
+    .normal {
+        background: #0f9cf3;
     }
-    .normal:hover{
+
+    .normal:hover {
         background: #0b7fc2;
     }
-    .warning{
+
+    .warning {
         background: #ff0000;
     }
-    .warning:hover{
+
+    .warning:hover {
         background: #ad0000;
     }
-    .dialog{
+    .success{
+        background: darkgreen;
+    }
+    .nosuccess{
+        background: lightgrey;
+    }
+    .nosuccess:hover{
+        background: grey;
+    }
+
+    .dialog {
         position: fixed;
         left: 50%;
         top: 50%;
-        transform: translate(-50%,-50%);
+        transform: translate(-50%, -50%);
         /*width: 60%;*/
         box-sizing: border-box;
         padding: 30px 50px;
@@ -56,12 +72,14 @@
         z-index: 100;
         transition: all 0.3s ease-in-out;
     }
-    .dialog-top{
+
+    .dialog-top {
         font-size: 24px;
         font-weight: bold;
         text-align: left;
     }
-    .dialog input{
+
+    .dialog input {
         border: none;
         outline: none;
         border-bottom: 1px solid darkgray;
@@ -69,20 +87,23 @@
         padding: 2px 5px;
         transition: all 0.3s ease-in-out;
     }
-    .dialog input:focus{
+
+    .dialog input:focus {
         border-bottom: 1px solid black;
     }
-    .mengban{
+
+    .mengban {
         top: 0;
         left: 0;
         position: fixed;
         width: 100%;
         height: 100%;
-        background: rgba(1,1,1,0.2);
+        background: rgba(1, 1, 1, 0.2);
         z-index: 99;
         transition: all 0.3s ease-in-out;
     }
-    .dialog-control{
+
+    .dialog-control {
         width: 100%;
         box-sizing: border-box;
         padding: 20px 0;
@@ -90,6 +111,7 @@
         justify-content: space-around;
         align-items: center;
     }
+
     .table-control{
         box-sizing: border-box;
         padding: 10px 0;
@@ -123,7 +145,7 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                            <h4 class="mb-sm-0">用户信息一览</h4>
+                            <h4 class="mb-sm-0">用户出入申请信息一览</h4>
                         </div>
                     </div>
                 </div>
@@ -134,32 +156,31 @@
                         <div class="card">
                             <div class="card-body">
 
-                                <h4 class="card-title">用户信息详情</h4>
+                                <h4 class="card-title">用户出入申请信息详情</h4>
                                 <p class="card-title-desc"></p>
                                 <div class="row">
                                     <div class="col-md-3"></div>
                                     <div class="col-md-6">
-                                            <div class="input-group">
-                                                <div class="input-group-btn">
-                                                    <select class="form-control" id="select_name" v-model="selectType">
-                                                        <option value="ccName">姓名</option>
-                                                        <option value="ccPhone">电话</option>
-                                                        <option value="ccSex">性别</option>
-                                                        <option value="ccAdress">住址</option>
-                                                        <option value="ccIsolationTime">隔离时间</option>
-                                                        <option value="ccIsolationWay">隔离方法</option>
-                                                    </select>
-                                                </div>
-                                                <input type="text" class="form-control" v-model="searchValue" placeholder="Search for...">
-                                                <button class="btn btn-primary" @click="search">搜索</button>
-                                                <button class="btn btn-danger" style="margin-left: 20px" @click="handleDialog(1)">添加</button>
+                                        <div class="input-group">
+                                            <div class="input-group-btn">
+                                                <select class="form-control" id="select_name"
+                                                        v-model="selectType">
+                                                    <option value="healthName">姓名</option>
+                                                    <option value="healthStatus">健康状态</option>
+                                                    <option value="healthAdree">地址</option>
+                                                </select>
                                             </div>
+                                            <input type="text" class="form-control" v-model="searchValue"
+                                                   placeholder="Search for...">
+                                            <button class="btn btn-primary" @click="search">搜索</button>
+                                        </div>
                                     </div>
                                 </div>
                                 <br>
                                 <br>
                                 <div class="table-responsive">
-                                    <table id="resident_table" class="table table-bordered table-nowrap mb-0 table-hover">
+                                    <table id="resident_table"
+                                           class="table table-bordered table-nowrap mb-0 table-hover">
                                         <thead>
                                         <tr>
                                             <th scope="col" class="text-center .col-md-">序号</th>
@@ -167,39 +188,43 @@
                                                 姓名
                                             </th>
                                             <th scope="col" class="text-center .col-md-">
-                                                性别
+                                                上报时间
+                                            </th>
+                                            <th scope="col" class="text-center .col-md-">
+                                                温度(℃)
+                                            </th>
+                                            <th scope="col" class="text-center .col-md-">
+                                                健康状况
+                                            </th>
+                                            <th scope="col" class="text-center .col-md-">
+                                                家人健康状况
+                                            </th>
+                                            <th scope="col" class="text-center .col-md-">
+                                                有无接触情况
                                             </th>
                                             <th scope="col" class="text-center .col-md-">
                                                 电话
                                             </th>
                                             <th scope="col" class="text-center .col-md-">
-                                                住址
+                                                地址
                                             </th>
                                             <th scope="col" class="text-center .col-md-">
-                                                入住时间
-                                            </th>
-                                            <th scope="col" class="text-center .col-md-">
-                                                隔离方式
-                                            </th>
-                                            <th scope="col" class="text-center .col-md-">
-                                                操作
+                                                备注
                                             </th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr v-for="(item,index) in closePersonList" :key="item.id">
+                                        <tr v-for="(item,index) in healthList1" :key="item.healthIds">
                                             <td>{{index+1}}</td>
-                                            <td>{{item.ccName}}</td>
-                                            <td>{{item.ccSex == 1 ? "男" : "女"}}</td>
-                                            <td>{{item.ccPhone}}</td>
-                                            <td>{{item.ccAdress}}</td>
-                                            <td>{{item.ccIsolationTime}}</td>
-                                            <td>{{item.ccIsolationWay}}</td>
-                                            <td>
-                                                <button class="tablebtn normal" @click="handleDialog(0,index)">编辑</button>
-                                                <button class="tablebtn warning" @click="handleDelete(index)">删除</button>
-                                            </td>
-                                        </tr>
+                                            <td>{{item.healthName}}</td>
+                                            <td>{{item.healthId}}</td>
+                                            <td>{{item.healthTemperature}}℃</td>
+                                            <td>{{item.healthStatus}}</td>
+                                            <td>{{item.healthOtherstatus}}</td>
+                                            <td :style="{color:item.healthIstouch == 0 ? 'green' : 'red'}">{{item.healthIstouch == 0 ? "无" : "有"}}</td>
+                                            <td>{{item.healthPhone}}</td>
+                                            <td>{{item.healthAdree}}</td>
+                                            <td>{{item.healthDetails}}</td>
                                         </tbody>
                                     </table>
                                 </div>
@@ -227,66 +252,6 @@
         </div>
         <!-- End Page-content -->
 
-<!--        对话框-->
-<!--        阴影蒙版-->
-        <div class="mengban" v-show="mengbanFlag" @click="handleCloseDialog"></div>
-        <div class="dialog" v-show="dialogFlag">
-            <div class="dialog-top">
-                {{dialogTag}}
-            </div>
-            <div class="dialog-content">
-                <table>
-                    <tr>
-                        <td>姓名</td>
-                        <td>
-                            <input type="text" placeholder="姓名" v-model="userInfo.ccName"><br>
-
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>性别</td>
-                        <td>
-                            <input type="radio" name="sex" v-model="userInfo.ccSex" value="1" > 男
-                            <input type="radio" name="sex" v-model="userInfo.ccSex" value="0" > 女<br>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>电话</td>
-                        <td>
-                            <input type="tel" v-model="userInfo.ccPhone" placeholder="电话"><br>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>地址</td>
-                        <td>
-                            <input type="text" v-model="userInfo.ccAdress" placeholder="地址"><br>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>密切接触者</td>
-                        <td>
-                            <input type="text" v-model="userInfo.ccUsername" placeholder="密切接触者">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>隔离时间</td>
-                        <td>
-                            <input type="number" v-model="userInfo.ccIsolationTime" >
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>隔离方法</td>
-                        <td>
-                            <input type="text" v-model="userInfo.ccIsolationWay">
-                        </td>
-                    </tr>
-                </table>
-                <div class="dialog-control">
-                    <button class="tablebtn normal" style="padding: 5px 20px" @click="handleEnterEdit">确  定</button>
-                    <button class="tablebtn warning" style="padding: 5px 20px" @click="handleCloseDialog">取  消</button>
-                </div>
-            </div>
-        </div>
 
 
         <footer class="footer">
@@ -307,61 +272,119 @@
     </div>
 
 
-<!-- 接收数据-->
+    <!-- 接收数据-->
     <script>
         //使用vue axios请求数据然后进行页面渲染
         var app = new Vue({
-            el:"#app",
-            data:{
-              closePersonList:[],
-                selectType:"ccName",
-                searchValue:"",
-                dialogTag:"修改信息",
-                mode:0,
-                userInfo:{
-                  id:null,
-                  ccName:"",
-                    ccSex:"",
-                    ccPhone:"",
-                    ccAdress:"",
-                    ccUsername:"",
-                    ccIsolationTime:"",
-                    ccIsolationWay:""
+            el: "#app",
+            data: {
+                healthList: [],
+                healthList1:[],
+                totalPage: 0,
+                selectType: "healthName",
+                searchValue: "",
+                userInfo: {
+                    healthId: null,
+                    healthIds:"",
+                    healthName:"",
+                    healthTemperature:null,
+                    healthStatus:"",
+                    healthOtherstatus:"",
+                    healthIstouch:null,
+                    healthPhone:null,
+                    healthAdree:"",
+                    healthDetails:"",
+                    healthMatter:""
                 },
-                dialogFlag:false,   //对话框状态
-                mengbanFlag:false,
                 //查询数据信息
-                dataMessage:{
-                  page:1,
-                    row:5,
-                    pages:0
+                dataMessage: {
+                    page: 1,
+                    row: 5,
+                    pages: 0
                 }
             },
-            mounted(){
-              this.getClosePerson();
+            mounted() {
+                this.getHealthList();
             },
-            methods:{
-                //添加信息表单验证
-                checkAddInfo(){
-                  if(this.userInfo.ccName != "" && this.userInfo.ccUsername != "" && this.userInfo.ccIsolationWay != "" && this.userInfo.ccIsolationTime != "" && this.userInfo.ccAdress != "" && this.userInfo.ccPhone != "" && this.userInfo.ccSex != "")
-                      return true;
-                  return false;
+            methods: {
+                //时间十进制
+                shijinzhi(date) {
+                    date = date >= 10 ? date : '0' + date; //判断传进来的参数是否小于十，小于则拼接一个0在前面
+                    return date;
                 },
-                //修改信息表单验证
-                checkEditInfo(){
-                    if(this.userInfo.id != null && this.userInfo.ccName != "" && this.userInfo.ccUsername != "" && this.userInfo.ccIsolationWay != "" && this.userInfo.ccIsolationTime != "" && this.userInfo.ccAdress != "" && this.userInfo.ccPhone != "" && this.userInfo.ccSex != "")
-                        return true;
-                    return false;
+                //年月日
+                ymd(sjc) {
+                    var date_ = new Date(sjc);
+                    var year_ = date_.getFullYear(); //获取年份
+                    var month_ = this.shijinzhi(date_.getMonth() + 1); //获取月份
+                    var date = date_.getDate(); //获取日期
+                    return year_ + '/' + month_ + '/' + date;
                 },
-                //获取密接人员信息
-                getClosePerson(){
-                    axios.get("findCC",{params:{type:this.selectType,check:this.searchValue,page:this.dataMessage.page}})
+                //时分秒
+                hms(sjc) {
+                    var date_ = new Date(sjc);
+                    var hours_ = date_.getHours();
+                    var min_ = this.shijinzhi(date_.getMinutes());
+                    var ms = this.shijinzhi(date_.getSeconds());
+                    var mm = '';
+                    if (hours_ > 12) {
+                        hours_ = this.shijinzhi(this.pm(hours_));
+                        mm = 'PM';
+                    } else {
+                        hours_ = this.shijinzhi(hours_);
+                        mm = 'AM';
+                    }
+                    return mm + ' ' + hours_ + ':' + min_ + ':' + ms;
+                },
+                //下午
+                pm(num1) {
+                    var arr = []; //声明一个数组用来存放下标13
+                    var coust = 0;
+                    for (var i = 13; i < 24; i++) {
+                        coust++;
+                        arr[i] = coust;
+                    }
+                    return num1 = arr[num1];
+                },
+
+
+                //时间转换
+                timeChange1(){//毫秒转时间
+                    this.userInfo.healthId = moment(this.userInfo.healthId).format('YYYY-MM-DD');
+                },
+                timeChange2(){//时间转毫秒
+                    this.userInfo.healthId = (new Date(this.userInfo.healthId)).getTime();
+                },
+                getHealthList() {
+                    axios.get("find", {
+                        params: {
+                            type: this.selectType,
+                            check: this.searchValue,
+                            page: this.dataMessage.page
+                        }
+                    })
                         .then(res => {
-                            this.closePersonList = res.data.data.list;
-                            this.dataMessage={
-                                page:res.data.data.pageNum,
-                                row:res.data.data.pageSize,
-                                pages:res.data.data.pages
+                            this.healthList = res.data.data.list;
+                            this.healthList1 = res.data.data.list.map(item=>{
+                                return {
+                                    healthId: this.ymd(item.healthId),
+                                    healthIds:item.healthIds,
+                                    healthName:item.healthName,
+                                    healthTemperature:item.healthTemperature,
+                                    healthStatus:item.healthStatus,
+                                    healthOtherstatus:item.healthOtherstatus,
+                                    healthIstouch:item.healthIstouch,
+                                    healthPhone:item.healthPhone,
+                                    healthAdree:item.healthAdree,
+                                    healthDetails:item.healthDetails,
+                                    healthMatter:item.healthMatter
+                                }
+                            });
+                            this.totalPage = res.data.data.pages;
+                            this.dataMessage = {
+                                page: res.data.data.pageNum,
+                                row: res.data.data.pageSize,
+                                pages: res.data.data.pages
                             }
                         })
                         .catch(err => {
@@ -369,108 +392,23 @@
                         })
                 },
                 //按条件搜索
-                search(){
-                    this.getClosePerson();
-                },
-                //打开对话框按钮
-                handleDialog(mode,index){
-                    this.mode = mode;
-                    if(this.mode == 0){
-                        this.dialogTag = "修改信息";
-                        this.userInfo = {
-                            id:this.closePersonList[index].id,
-                            ccName:this.closePersonList[index].ccName,
-                            ccSex:this.closePersonList[index].ccSex,
-                            ccPhone:this.closePersonList[index].ccPhone,
-                            ccAdress:this.closePersonList[index].ccAdress,
-                            ccUsername:this.closePersonList[index].ccUsername,
-                            ccIsolationTime:this.closePersonList[index].ccIsolationTime,
-                            ccIsolationWay:this.closePersonList[index].ccIsolationWay
-                        }
-                    }else if(this.mode == 1) {
-                        this.dialogTag = "添加信息";
-                        this.userInfo = {
-                            id: null,
-                            ccName: "",
-                            ccSex: "",
-                            ccPhone: "",
-                            ccAdress: "",
-                            ccUsername: "",
-                            ccIsolationTime: "",
-                            ccIsolationWay: ""
-                        }
-                    }
-                    //打开对话框
-                    this.dialogFlag = true;
-                    this.mengbanFlag = true;
-                },
-                //点击关闭对话框
-                handleCloseDialog(){
-                    this.dialogFlag = false;
-                    this.mengbanFlag = false;
-                },
-                //确定修改
-                handleEnterEdit(){
-                    if(this.mode == 0){
-                        if(this.checkEditInfo()){
-                            axios.post("update",this.userInfo).then(res => {
-                                // console.log(res.data);
-                                if(res.data.code != 200) return alert("修改失败");
-                                alert("修改成功");
-                                this.dialogFlag = false;
-                                this.mengbanFlag = false;
-                                this.getClosePerson();
-                            }).catch(err => {
-                                alert("修改失败"+err);
-                                console.log('错误' + err);
-                            })
-                        }
-                    }else if(this.mode == 1){
-                        if(this.checkAddInfo()){
-                            axios.post("save",this.userInfo).then(res => {
-                                if(res.data.code != 200) return alert("添加失败");
-                                alert("添加成功");
-                                this.dialogFlag = false;
-                                this.mengbanFlag = false;
-                                this.getClosePerson();
-                            })
-                                .catch(err => {
-                                    alert("添加失败"+err);
-                                    console.log('错误' + err);
-                                })
-                        }else{
-                            alert("请输入正确信息");
-                        }
-
-                    }
-
-                },
-                //点击删除
-                handleDelete(index){
-                    axios.delete(`delete/${this.closePersonList[index].id}`)
-                    .then(res=>{
-                        if(res.data.code != 200) return alert("删除失败");
-                        alert("删除成功");
-                        this.getClosePerson();
-                    }).catch(err=>{
-                        console.log(err);
-                        alert("删除失败");
-                    })
+                search() {
+                    this.getHealthList();
                 },
                 //切换页码
-                handleShift(pageMode){
-                    if(pageMode == 0){
+                handleShift(pageMode) {
+                    if (pageMode == 0) {
                         this.dataMessage.page--;
-                        this.getClosePerson();
-                    }else if(pageMode == 1){
+                        this.getHealthList();
+                    } else if (pageMode == 1) {
                         this.dataMessage.page++;
-                        this.getClosePerson();
-                    }else if(pageMode == 2){
+                        this.getHealthList();
+                    } else if (pageMode == 2) {
                         this.dataMessage.page = 1;
-                        this.getClosePerson();
-                    }else if(pageMode == 3){
+                        this.getHealthList();
+                    } else if (pageMode == 3) {
                         this.dataMessage.page = this.dataMessage.pages;
-                        this.getClosePerson();
+                        this.getHealthList();
                     }
                 }
             }

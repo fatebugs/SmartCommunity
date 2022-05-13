@@ -212,7 +212,7 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr v-for="(item,index) in vaccinationList1" :key="item.id">
+                                        <tr v-for="(item,index) in vaccinationList1" :key="item.vaccinationId">
                                             <td>{{index+1}}</td>
                                             <td>{{item.vaccinationName}}</td>
                                             <td>{{item.vaccinationSex == 1 ? "男" : "女"}}</td>
