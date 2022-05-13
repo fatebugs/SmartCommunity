@@ -35,7 +35,10 @@ public class ScRubbishController {
 
     @RequestMapping("/find")
     @ResponseBody
-    public Result findCC(@RequestParam(value = "page", defaultValue = "1") int page, @RequestParam(value = "row", defaultValue = "5") int row, @RequestParam(value = "type", required = false, defaultValue = "") String type, @RequestParam(value = "check", required = false, defaultValue = "") String check) {
+    public Result findCC(@RequestParam(value = "page", defaultValue = "1") int page, 
+                         @RequestParam(value = "row", defaultValue = "5") int row,
+                         @RequestParam(value = "type", required = false, defaultValue = "") String type,
+                         @RequestParam(value = "check", required = false, defaultValue = "") String check) {
         PageInfo<Map<String, Object>> dc = scRubbishService.findScR(page, row, type, check);
         return Result.ok().put(dc);
     }

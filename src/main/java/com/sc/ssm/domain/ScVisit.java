@@ -24,7 +24,7 @@ public class ScVisit implements Serializable {
      *
      */
     @TableId
-    private String visitIds;
+    private Integer visitIds;
 
     /**
      * 姓名
