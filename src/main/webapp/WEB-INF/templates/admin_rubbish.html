@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <title>垃圾索引管理</title>
+    <title>垃圾分类类型管理</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description">
     <meta content="Themesdesign" name="author">
@@ -123,7 +123,7 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                            <h4 class="mb-sm-0">用户信息一览</h4>
+                            <h4 class="mb-sm-0">垃圾分类信息一览</h4>
                         </div>
                     </div>
                 </div>
@@ -134,26 +134,21 @@
                         <div class="card">
                             <div class="card-body">
 
-                                <h4 class="card-title">用户信息详情</h4>
+                                <h4 class="card-title">垃圾分类信息详情</h4>
                                 <p class="card-title-desc"></p>
                                 <div class="row">
                                     <div class="col-md-3"></div>
                                     <div class="col-md-6">
-                                            <div class="input-group">
-                                                <div class="input-group-btn">
-                                                    <select class="form-control" id="select_name" v-model="selectType">
-                                                        <option value="ccName">姓名</option>
-                                                        <option value="ccPhone">电话</option>
-                                                        <option value="ccSex">性别</option>
-                                                        <option value="ccAdress">住址</option>
-                                                        <option value="ccIsolationTime">隔离时间</option>
-                                                        <option value="ccIsolationWay">隔离方法</option>
-                                                    </select>
-                                                </div>
-                                                <input type="text" class="form-control" v-model="searchValue" placeholder="Search for...">
-                                                <button class="btn btn-primary" @click="search">搜索</button>
-                                                <button class="btn btn-danger" style="margin-left: 20px" @click="handleDialog(1)">添加</button>
+                                        <div class="input-group">
+                                            <div class="input-group-btn">
+                                                <select class="form-control" id="select_name" v-model="selectType">
+                                                    <option value="rubbish_name">垃圾名称</option>
+                                                </select>
                                             </div>
+                                            <input type="text" class="form-control" v-model="searchValue" placeholder="Search for...">
+                                            <button class="btn btn-primary" @click="search">搜索</button>
+                                            <button class="btn btn-danger" style="margin-left: 20px" @click="handleDialog(1)">添加</button>
+                                        </div>
                                     </div>
                                 </div>
                                 <br>
@@ -164,22 +159,10 @@
                                         <tr>
                                             <th scope="col" class="text-center .col-md-">序号</th>
                                             <th scope="col" class="text-center .col-md-">
-                                                姓名
+                                                垃圾名
                                             </th>
                                             <th scope="col" class="text-center .col-md-">
-                                                性别
-                                            </th>
-                                            <th scope="col" class="text-center .col-md-">
-                                                电话
-                                            </th>
-                                            <th scope="col" class="text-center .col-md-">
-                                                住址
-                                            </th>
-                                            <th scope="col" class="text-center .col-md-">
-                                                入住时间
-                                            </th>
-                                            <th scope="col" class="text-center .col-md-">
-                                                隔离方式
+                                                分类名
                                             </th>
                                             <th scope="col" class="text-center .col-md-">
                                                 操作
@@ -187,14 +170,10 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr v-for="(item,index) in closePersonList" :key="item.id">
+                                        <tr v-for="(item,index) in rubbishList" :key="item.rubbish_id">
                                             <td>{{index+1}}</td>
-                                            <td>{{item.ccName}}</td>
-                                            <td>{{item.ccSex == 1 ? "男" : "女"}}</td>
-                                            <td>{{item.ccPhone}}</td>
-                                            <td>{{item.ccAdress}}</td>
-                                            <td>{{item.ccIsolationTime}}</td>
-                                            <td>{{item.ccIsolationWay}}</td>
+                                            <td>{{item.rubbish_name}}</td>
+                                            <td>{{item.classification_name}}</td>
                                             <td>
                                                 <button class="tablebtn normal" @click="handleDialog(0,index)">编辑</button>
                                                 <button class="tablebtn warning" @click="handleDelete(index)">删除</button>
@@ -227,8 +206,8 @@
         </div>
         <!-- End Page-content -->
 
-<!--        对话框-->
-<!--        阴影蒙版-->
+        <!--        对话框-->
+        <!--        阴影蒙版-->
         <div class="mengban" v-show="mengbanFlag" @click="handleCloseDialog"></div>
         <div class="dialog" v-show="dialogFlag">
             <div class="dialog-top">
@@ -237,47 +216,19 @@
             <div class="dialog-content">
                 <table>
                     <tr>
-                        <td>姓名</td>
+                        <td>垃圾名</td>
                         <td>
-                            <input type="text" placeholder="姓名" v-model="userInfo.ccName"><br>
-
+                            <input type="text" placeholder="垃圾名" v-model="userInfo.rubbish_name">
                         </td>
                     </tr>
                     <tr>
-                        <td>性别</td>
+                        <td>分类名</td>
                         <td>
-                            <input type="radio" name="sex" v-model="userInfo.ccSex" value="1" > 男
-                            <input type="radio" name="sex" v-model="userInfo.ccSex" value="0" > 女<br>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>电话</td>
-                        <td>
-                            <input type="tel" v-model="userInfo.ccPhone" placeholder="电话"><br>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>地址</td>
-                        <td>
-                            <input type="text" v-model="userInfo.ccAdress" placeholder="地址"><br>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>密切接触者</td>
-                        <td>
-                            <input type="text" v-model="userInfo.ccUsername" placeholder="密切接触者">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>隔离时间</td>
-                        <td>
-                            <input type="number" v-model="userInfo.ccIsolationTime" >
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>隔离方法</td>
-                        <td>
-                            <input type="text" v-model="userInfo.ccIsolationWay">
+                            <select class="form-control" name="class" v-model="userInfo.classification_id">
+                                <option v-for="(item) in classificationList" :key="item.classificationId" :value="item.classificationId">
+                                    {{item.classificationName}}
+                                </option>
+                            </select>
                         </td>
                     </tr>
                 </table>
@@ -307,57 +258,64 @@
     </div>
 
 
-<!-- 接收数据-->
+    <!-- 接收数据-->
     <script>
         //使用vue axios请求数据然后进行页面渲染
         var app = new Vue({
             el:"#app",
             data:{
-              closePersonList:[],
-                selectType:"ccName",
+                rubbishList:[],
+                classificationList:[],
+                selectType:"rubbish_name",
                 searchValue:"",
                 dialogTag:"修改信息",
                 mode:0,
                 userInfo:{
-                  id:null,
-                  ccName:"",
-                    ccSex:"",
-                    ccPhone:"",
-                    ccAdress:"",
-                    ccUsername:"",
-                    ccIsolationTime:"",
-                    ccIsolationWay:""
+                    rubbish_id:null,
+                    rubbish_name:"",
+                    classification_name:"",
+                    classification_id:"",
                 },
                 dialogFlag:false,   //对话框状态
                 mengbanFlag:false,
                 //查询数据信息
                 dataMessage:{
-                  page:1,
+                    page:1,
                     row:5,
                     pages:0
                 }
             },
             mounted(){
-              this.getClosePerson();
+                this.getRubbish();
+                this.getClassification();
             },
             methods:{
+                //获取分类名称
+                getClassification(){
+                    axios.get("http://localhost:2002/SmartCommunity_war_exploded/scc/find",{params:{page:1,row:1000}})
+                        .then(res => {
+                            this.classificationList = res.data.data.list;
+                        })
+                        .catch(err => {
+                            console.log('错误' + err)
+                        })
+                },
                 //添加信息表单验证
                 checkAddInfo(){
-                  if(this.userInfo.ccName != "" && this.userInfo.ccUsername != "" && this.userInfo.ccIsolationWay != "" && this.userInfo.ccIsolationTime != "" && this.userInfo.ccAdress != "" && this.userInfo.ccPhone != "" && this.userInfo.ccSex != "")
-                      return true;
-                  return false;
-                },
-                //修改信息表单验证
-                checkEditInfo(){
-                    if(this.userInfo.id != null && this.userInfo.ccName != "" && this.userInfo.ccUsername != "" && this.userInfo.ccIsolationWay != "" && this.userInfo.ccIsolationTime != "" && this.userInfo.ccAdress != "" && this.userInfo.ccPhone != "" && this.userInfo.ccSex != "")
+                    if(this.userInfo.rubbish_name != "" && this.userInfo.classification_name != "" && this.userInfo.classification_id != "")
                         return true;
                     return false;
                 },
-                //获取密接人员信息
-                getClosePerson(){
-                    axios.get("findCC",{params:{type:this.selectType,check:this.searchValue,page:this.dataMessage.page}})
+                //修改信息表单验证
+                checkEditInfo(){
+                    if(this.userInfo.rubbish_id != null && this.userInfo.rubbish_name != "" && this.userInfo.classification_name != "" && this.userInfo.classification_id != "")
+                        return true;
+                    return false;
+                },
+                getRubbish(){
+                    axios.get("find",{params:{type:this.selectType,check:this.searchValue,page:this.dataMessage.page}})
                         .then(res => {
-                            this.closePersonList = res.data.data.list;
+                            this.rubbishList = res.data.data.list;
                             this.dataMessage={
                                 page:res.data.data.pageNum,
                                 row:res.data.data.pageSize,
@@ -370,7 +328,7 @@
                 },
                 //按条件搜索
                 search(){
-                    this.getClosePerson();
+                    this.getRubbish();
                 },
                 //打开对话框按钮
                 handleDialog(mode,index){
@@ -378,26 +336,16 @@
                     if(this.mode == 0){
                         this.dialogTag = "修改信息";
                         this.userInfo = {
-                            id:this.closePersonList[index].id,
-                            ccName:this.closePersonList[index].ccName,
-                            ccSex:this.closePersonList[index].ccSex,
-                            ccPhone:this.closePersonList[index].ccPhone,
-                            ccAdress:this.closePersonList[index].ccAdress,
-                            ccUsername:this.closePersonList[index].ccUsername,
-                            ccIsolationTime:this.closePersonList[index].ccIsolationTime,
-                            ccIsolationWay:this.closePersonList[index].ccIsolationWay
+                            rubbish_id:this.rubbishList[index].rubbish_id,
+                            rubbish_name:this.rubbishList[index].rubbish_name,
+                            classification_id:this.rubbishList[index].classification_id,
+                            classification_name:this.rubbishList[index].classification_name
                         }
                     }else if(this.mode == 1) {
                         this.dialogTag = "添加信息";
                         this.userInfo = {
-                            id: null,
-                            ccName: "",
-                            ccSex: "",
-                            ccPhone: "",
-                            ccAdress: "",
-                            ccUsername: "",
-                            ccIsolationTime: "",
-                            ccIsolationWay: ""
+                            rubbish_name: "",
+                            classification_id: this.classificationList[0].classificationId,
                         }
                     }
                     //打开对话框
@@ -419,7 +367,7 @@
                                 alert("修改成功");
                                 this.dialogFlag = false;
                                 this.mengbanFlag = false;
-                                this.getClosePerson();
+                                this.getRubbish();
                             }).catch(err => {
                                 alert("修改失败"+err);
                                 console.log('错误' + err);
@@ -432,7 +380,7 @@
                                 alert("添加成功");
                                 this.dialogFlag = false;
                                 this.mengbanFlag = false;
-                                this.getClosePerson();
+                                this.getRubbish();
                             })
                                 .catch(err => {
                                     alert("添加失败"+err);
@@ -447,12 +395,12 @@
                 },
                 //点击删除
                 handleDelete(index){
-                    axios.delete(`delete/${this.closePersonList[index].id}`)
-                    .then(res=>{
-                        if(res.data.code != 200) return alert("删除失败");
-                        alert("删除成功");
-                        this.getClosePerson();
-                    }).catch(err=>{
+                    axios.delete(`delete/${this.rubbishList[index].rubbish_id}`)
+                        .then(res=>{
+                            if(res.data.code != 200) return alert("删除失败");
+                            alert("删除成功");
+                            this.getRubbish();
+                        }).catch(err=>{
                         console.log(err);
                         alert("删除失败");
                     })
@@ -461,16 +409,16 @@
                 handleShift(pageMode){
                     if(pageMode == 0){
                         this.dataMessage.page--;
-                        this.getClosePerson();
+                        this.getRubbish();
                     }else if(pageMode == 1){
                         this.dataMessage.page++;
-                        this.getClosePerson();
+                        this.getRubbish();
                     }else if(pageMode == 2){
                         this.dataMessage.page = 1;
-                        this.getClosePerson();
+                        this.getRubbish();
                     }else if(pageMode == 3){
                         this.dataMessage.page = this.dataMessage.pages;
-                        this.getClosePerson();
+                        this.getRubbish();
                     }
                 }
             }
