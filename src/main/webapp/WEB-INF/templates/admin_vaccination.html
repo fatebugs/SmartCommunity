@@ -215,7 +215,7 @@
                                         <tr v-for="(item,index) in vaccinationList1" :key="item.id">
                                             <td>{{index+1}}</td>
                                             <td>{{item.vaccinationName}}</td>
-                                            <td>{{item.vaccinationSex}}</td>
+                                            <td>{{item.vaccinationSex == 1 ? "男" : "女"}}</td>
                                             <td>{{item.vaccinationPhone}}</td>
                                             <td>{{item.vaccinationAdress}}</td>
                                             <td v-show="item.vaccinationFirst">
@@ -429,7 +429,16 @@
                 },
                 //通过审核
                 handleCheck(index) {
-
+                    axios.post("update", {vaccinationCheck:this.vaccinationList[index].vaccinationCheck}).then(res => {
+                        if (res.data.code != 200) return alert("审核通过失败");
+                        alert("审核通过成功");
+                        this.dialogFlag = false;
+                        this.mengbanFlag = false;
+                        this.getDisinfecting();
+                    }).catch(err => {
+                        alert("审核通过失败" + err);
+                        console.log('错误' + err);
+                    })
                 },
                 //切换页码
                 handleShift(pageMode) {
