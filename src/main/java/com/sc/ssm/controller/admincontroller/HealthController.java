@@ -23,7 +23,7 @@ public class HealthController {
 
     @RequestMapping("/health")
     public String toHealth(){
-        return "admin_health";
+        return "admin_health_report";
     }
 
     @RequestMapping("/find")
