@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sc.ssm.dao.ScRubbishMapper">
+
+    <resultMap id="BaseResultMap" type="com.sc.ssm.domain.ScRubbish">
+            <id property="rubbishId" column="rubbish_id" jdbcType="INTEGER"/>
+            <result property="rubbishName" column="rubbish_name" jdbcType="VARCHAR"/>
+            <result property="rubbishFyid" column="rubbish_fyid" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        rubbish_id,rubbish_name,rubbish_fyid
+    </sql>
+</mapper>

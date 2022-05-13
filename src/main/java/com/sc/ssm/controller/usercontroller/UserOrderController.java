@@ -30,6 +30,8 @@ public class UserOrderController {
 
     @Autowired
     OrderService orderService;
+    @Autowired
+    IdWorker idWorker;
 
     @RequestMapping("/userOrder")
     public String userOrder(@RequestParam("id") int id,
@@ -45,12 +47,14 @@ public class UserOrderController {
 
         //格式说明 UUID20221111xxx CODE+当前年月日+编号（具体长度看需求）
         String front="UUID";//前缀
+
+
         //当前时间编码
         Date date = new Date();
-        String bidDate = new SimpleDateFormat("yyyyMMdd").format(date);
 
-        String bidNum = "00" + number++;
-        String UUID = front+bidDate+bidNum;
+        long bidNum = idWorker.nextId();
+
+        String UUID = front+bidNum;
         model.addAttribute("UUID",UUID);
 
         return "user_order";

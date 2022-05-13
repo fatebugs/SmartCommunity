@@ -35,6 +35,11 @@ implements ScClassificationService{
         List<ScClassification> list = scClassificationMapper.selectList(queryWrapper);
         return new PageInfo<>(list);
     }
+
+    @Override
+    public List<Integer> findAllId() {
+        return scClassificationMapper.selectAllId();
+    }
 }
 
 
